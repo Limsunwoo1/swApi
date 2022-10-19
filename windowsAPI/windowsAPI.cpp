@@ -1,8 +1,9 @@
 ﻿// windowsAPI.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
 
-#include "framework.h"
+#include "Common.h"
 #include "windowsAPI.h"
+#include "Application.h"
 
 #define MAX_LOADSTRING 100
 
@@ -58,14 +59,41 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 
+    // GetMaessage : 프로세스에 발생한 메시지를 메세지 큐에서 꺼내서내옴
+    // 메세지가 있을때만 메세지를 꺼내온다.
+    // 메세지 case 함수를 호출해준다.
+    
+    
+    // PeekMessage : 발생한 메세지를 가져 올때 메세지큐에서 따로 제거해줘야한다.
+    // 메세지큐에 메세지가 들어있는 유/무에 관계없이 함수가 리턴된다.
+
+
+
     // 기본 메시지 루프입니다:
-    while (GetMessage(&msg, nullptr, 0, 0))
+    while (1)
     {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
+            if (WM_QUIT == msg.message)
+                break;
+
+            if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+            {
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+            }
         }
+        else
+        {
+            // 게임 실행
+            sw::Application::GetInstance().Tick();
+        }
+    }
+
+    // 종료가 되었을때
+    if (WM_QUIT == msg.message)
+    {
+        // 메모리 해제 작업
     }
 
     return (int) msg.wParam;
@@ -113,16 +141,25 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
-                                                      
+   
+   WindowData windowData;
+   windowData.width = 1920;
+   windowData.height = 1080;
+
+
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW, // - 창스타일
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
    //  창시작 위지 // 창의 가로세로 크기  //-부모핸들 - 메뉴 //- 메인핸들 - 구조체번지수
+
+   windowData.hWnd = hWnd;
+   windowData.hdc = nullptr;
 
    if (!hWnd)
    {
       return FALSE;
    }
 
+   SetWindowPos(hWnd, nullptr, 0, 0, windowData.width, windowData.height, 0);
    ShowWindow(hWnd, nCmdShow); // 생성한 윈도우를 그려주는 함수
    UpdateWindow(hWnd);         // 윈도우창 업데이트
 
@@ -167,6 +204,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
+
+            // 스톡오브젝트
+            // 화면 지우기
+            
+            HBRUSH hClearBrush = (HBRUSH)GetStockObject(GRAY_BRUSH);
+            HBRUSH oldClearBrush = (HBRUSH)SelectObject(hdc, hClearBrush);
+            Rectangle(hdc, -1, -1, 1921, 1081);
+
+
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
             EndPaint(hWnd, &ps);
 
