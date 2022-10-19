@@ -141,6 +141,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    // 무효화 영역 발생시키기 ( WM_PAINT 메세지를 호출해주겠다)
+    //InvalidateRect(hWnd, nullptr, false);
+
     switch (message)
     {
     case WM_COMMAND:
