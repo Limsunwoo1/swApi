@@ -7,7 +7,7 @@ namespace sw
 	{
 	public:
 		LogoScene();
-		~LogoScene();
+		virtual ~LogoScene();
 
 		void Initialize() override;
 		void Tick() override;

@@ -8,7 +8,7 @@ namespace sw
 	{
 	public:
 		GameObject();
-		~GameObject();
+		virtual ~GameObject();
 
 
 		virtual void Initialize();

@@ -7,7 +7,7 @@ namespace sw
 	{
 	public:
 		Player();
-		~Player();
+		virtual ~Player();
 
 		virtual void Tick() override;
 		virtual void Render(HDC hdc) override;
