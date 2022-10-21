@@ -15,17 +15,29 @@
     <Filter Include="Client">
       <UniqueIdentifier>{d8cbbb7d-74f9-4bdb-8ced-1ecef906f543}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Commne">
+      <UniqueIdentifier>{44c760a4-9077-49d3-8274-9ce104a72de1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\High Level Interface">
+      <UniqueIdentifier>{e06ce71f-28c5-4dd3-bb15-b173f53ff5c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject">
+      <UniqueIdentifier>{965b7122-a85f-403f-8c0d-02102efb005b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager">
+      <UniqueIdentifier>{5823b96e-e9eb-4075-95f2-c9687ace440f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene">
+      <UniqueIdentifier>{0c675fd6-81e8-41ef-bd8a-21161c2e0a8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Base">
+      <UniqueIdentifier>{e2008159-e362-4fc3-9526-27e03904111c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\Base">
+      <UniqueIdentifier>{f568c409-2abc-431c-a7bd-e77578d71d59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Common.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Maths.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Application.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>main</Filter>
     </ClInclude>
@@ -41,16 +53,58 @@
     <ClInclude Include="Entity.h">
       <Filter>Client</Filter>
     </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>Engine\Commne</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths.h">
+      <Filter>Engine\Commne</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>Engine\High Level Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="def.h">
+      <Filter>Engine\Commne</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Engine\GameObject\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Engine\Scene\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoScene.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
       <Filter>main</Filter>
     </ClCompile>
-    <ClCompile Include="Application.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Engine\High Level Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Engine\GameObject\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Engine\Scene\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="LogoScene.cpp">
+      <Filter>Engine\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

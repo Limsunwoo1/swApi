@@ -1,5 +1,5 @@
 #include "Application.h"
-
+#include "SceneManager.h"
 
 namespace sw
 {
@@ -13,17 +13,22 @@ namespace sw
 
 	Application::~Application()
 	{
+		SceneManager::Release();
 
+		ReleaseDC(mWindowDate.hWnd, mWindowDate.hdc);
 	}
 
 	void Application::Initialize(WindowData data)
 	{
 		mWindowDate = data;
 		mWindowDate.hdc = GetDC(data.hWnd);
+
+		SceneManager::Initalize();
 	}
 
 	void Application::Tick()
 	{
-
+		SceneManager::Tick();
+		SceneManager::Render(mWindowDate.hdc);
 	}
 }

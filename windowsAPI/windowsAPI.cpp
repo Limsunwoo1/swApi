@@ -163,6 +163,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    ShowWindow(hWnd, nCmdShow); // 생성한 윈도우를 그려주는 함수
    UpdateWindow(hWnd);         // 윈도우창 업데이트
 
+   sw::Application::GetInstance().Initialize(windowData);
+
    return TRUE;
 }
 
@@ -211,6 +213,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             HBRUSH hClearBrush = (HBRUSH)GetStockObject(GRAY_BRUSH);
             HBRUSH oldClearBrush = (HBRUSH)SelectObject(hdc, hClearBrush);
             Rectangle(hdc, -1, -1, 1921, 1081);
+            SelectObject(hdc, oldClearBrush);
 
 
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
