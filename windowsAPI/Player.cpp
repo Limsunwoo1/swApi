@@ -1,4 +1,12 @@
 #include "Player.h"
+#include "Input.h"
+#include "Time.h"
+#include "SceneManager.h"
+
+#include "Scene.h"
+#include "Missile.h"
+
+
 
 namespace sw
 {
@@ -16,23 +24,40 @@ namespace sw
 
 	void Player::Tick()
 	{
+		int speed = 10;
 		Vector2 pos = GetPos();
-		if (GetAsyncKeyState('W') & 0x8000)
+		if (KEY_PRESSE(eKeyCode::W))
 		{
-			pos.y -= 0.01f;
+			pos.y -= 120.0f * Time::DeltaTime() * speed;
 		}
-		if (GetAsyncKeyState('S') & 0x8000)
+		if (KEY_PRESSE(eKeyCode::S))
 		{
-			pos.y += 0.01f;
+			pos.y += 120.0f * Time::DeltaTime() * speed;
 		}
-		if (GetAsyncKeyState('A') & 0x8000)
+		if (KEY_PRESSE(eKeyCode::A))
 		{
-			pos.x -= 0.01f;
+			pos.x -= 120.0f * Time::DeltaTime() * speed;
 		}
-		if (GetAsyncKeyState('D') & 0x8000)
+		if (KEY_PRESSE(eKeyCode::D))
 		{
-			pos.x += 0.01f;
+			pos.x += 120.0f * Time::DeltaTime() * speed;
 		}
+
+		if (KEY_DOWN(eKeyCode::SPACE))
+		{
+			Missile* missile = new Missile();
+
+			Scene* playScene = SceneManager::GetPlayScene();
+			playScene->AddGameObject(missile);
+
+			Vector2D playerpos = GetPos();
+			Vector2D playerscale = GetScale() / 2.0f;
+
+			Vector2D missileScale = missile->GetScale();
+
+			missile->SetPos((playerpos + playerscale) - (missileScale / 2.0f));
+		}
+
 		SetPos(pos);
 	}
 

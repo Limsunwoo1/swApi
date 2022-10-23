@@ -16,6 +16,7 @@ struct WindowData
 {
 	HWND hWnd;
 	HDC hdc;
+	HDC backhdc;
 	UINT height;
 	UINT width;
 
@@ -23,6 +24,7 @@ struct WindowData
 	{
 		hWnd = nullptr;
 		hdc = nullptr;
+		HDC hdc = nullptr;
 		height = 0;
 		width = 0;
 	}

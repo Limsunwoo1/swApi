@@ -1,5 +1,7 @@
 #include "Application.h"
 #include "SceneManager.h"
+#include "Time.h"
+#include "Input.h"
 
 namespace sw
 {
@@ -16,6 +18,7 @@ namespace sw
 		SceneManager::Release();
 
 		ReleaseDC(mWindowDate.hWnd, mWindowDate.hdc);
+		ReleaseDC(mWindowDate.hWnd, mWindowDate.backhdc);
 	}
 
 	void Application::Initialize(WindowData data)
@@ -23,12 +26,35 @@ namespace sw
 		mWindowDate = data;
 		mWindowDate.hdc = GetDC(data.hWnd);
 
+		Time::Initialize();
+		Input::Initialize();
 		SceneManager::Initalize();
+
+		mWindowDate.backhdc = CreateCompatibleDC(mWindowDate.hdc);
+		BackBitMap = CreateCompatibleBitmap(mWindowDate.hdc, 1920, 1080);
+		BitMap = (HBITMAP)SelectObject(mWindowDate.backhdc, BackBitMap);
 	}
 
 	void Application::Tick()
 	{
+		Time::Tick();
+		Input::Tick();
 		SceneManager::Tick();
-		SceneManager::Render(mWindowDate.hdc);
+
+		Application::Render();
+	}
+
+	void Application::Render()
+	{
+		Time::Render(mWindowDate.hdc);
+		Input::Render(mWindowDate.hdc);
+
+		// 더블 버퍼링
+		// ===========================================
+		SceneManager::Render(mWindowDate.backhdc);
+
+		BitBlt(mWindowDate.hdc, 0, 0, 1920, 1080,
+			mWindowDate.backhdc, 0, 0, SRCCOPY);
+		// ===========================================
 	}
 }

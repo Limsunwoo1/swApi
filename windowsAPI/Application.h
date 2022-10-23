@@ -16,10 +16,14 @@ namespace sw
 
 		void Initialize(WindowData data);
 		void Tick();
+		void Render();
 
 	private:
 		static Application mInstance;
 		WindowData mWindowDate;
+
+		HBITMAP BitMap;
+		HBITMAP BackBitMap;
 	};
 }
 
