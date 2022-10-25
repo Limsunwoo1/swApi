@@ -30,5 +30,7 @@ namespace sw
 	void LogoScene::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
+
+		sw::MeteorControler::GetMeteorControler()->Render(hdc);
 	}
 }

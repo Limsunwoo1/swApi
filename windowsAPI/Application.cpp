@@ -10,29 +10,54 @@ namespace sw
 
 	Application::Application()
 	{
-		mWindowDate.clear();
+		mWindowData.clear();
 	}
 
 	Application::~Application()
 	{
 		SceneManager::Release();
 
-		ReleaseDC(mWindowDate.hWnd, mWindowDate.hdc);
-		ReleaseDC(mWindowDate.hWnd, mWindowDate.backhdc);
+		ReleaseDC(mWindowData.hWnd, mWindowData.hdc);
+		ReleaseDC(mWindowData.hWnd, mWindowData.backbuffer);
 	}
 
 	void Application::Initialize(WindowData data)
 	{
-		mWindowDate = data;
-		mWindowDate.hdc = GetDC(data.hWnd);
+		Application::initialize(data);
 
 		Time::Initialize();
 		Input::Initialize();
 		SceneManager::Initalize();
 
-		mWindowDate.backhdc = CreateCompatibleDC(mWindowDate.hdc);
-		BackBitMap = CreateCompatibleBitmap(mWindowDate.hdc, 1920, 1080);
-		BitMap = (HBITMAP)SelectObject(mWindowDate.backhdc, BackBitMap);
+	}
+		
+	void Application::initialize(WindowData data)
+	{
+		mWindowData = data;
+		mWindowData.hdc = GetDC(data.hWnd);
+
+		// 1922
+		// 비트맵 해상도를 설정하기 위한 실제 윈도우 크기 계산
+		RECT rect = { 0,0, data.width, data.height };
+		AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+
+		// 윈도우 크기 변경
+		SetWindowPos(data.hWnd,
+			nullptr, 0, 0
+			, rect.right - rect.left
+			, rect.bottom - rect.top
+			, 0);
+		ShowWindow(data.hWnd, true);
+
+		mWindowData.backTexture
+			= CreateCompatibleBitmap(mWindowData.hdc, mWindowData.width, mWindowData.height);
+
+
+		mWindowData.backbuffer = CreateCompatibleDC(mWindowData.hdc);
+		HBITMAP dafaultBitmap
+			= (HBITMAP)SelectObject(mWindowData.backbuffer, mWindowData.backTexture);
+		
+		DeleteObject(dafaultBitmap);
 	}
 
 	void Application::Tick()
@@ -46,15 +71,21 @@ namespace sw
 
 	void Application::Render()
 	{
-		Time::Render(mWindowDate.hdc);
-		Input::Render(mWindowDate.hdc);
+		// Clear
+		Rectangle(mWindowData.backbuffer,
+			-1, -1, 
+			mWindowData.width + 1, mWindowData.height + 1);
 
 		// 더블 버퍼링
 		// ===========================================
-		SceneManager::Render(mWindowDate.backhdc);
+		Time::Render(mWindowData.backbuffer);
+		Input::Render(mWindowData.backbuffer);
 
-		BitBlt(mWindowDate.hdc, 0, 0, 1920, 1080,
-			mWindowDate.backhdc, 0, 0, SRCCOPY);
+		SceneManager::Render(mWindowData.backbuffer);
+
+		// BitBle 함수는 DC간에 이미지를 복사 해주는 함수
+		BitBlt(mWindowData.hdc, 0, 0, mWindowData.width, mWindowData.height,
+			mWindowData.backbuffer, 0, 0, SRCCOPY);
 		// ===========================================
 	}
 }

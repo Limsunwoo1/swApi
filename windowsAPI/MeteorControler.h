@@ -5,12 +5,16 @@
 namespace sw
 {
 	class Meteor;
-	class MeteorControler : public GameObject
+	class MeteorControler
 	{
 	public:
 		static MeteorControler* GetMeteorControler() {return &meteorControler;}
-		virtual void Tick() override;
+		 void Tick();
+		 void Render(HDC hdc) ;
 
+	private:
+		MeteorControler();
+		virtual ~MeteorControler();
 
 	private:
 		std::vector<Meteor*> Meteors;

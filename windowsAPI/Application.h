@@ -11,19 +11,20 @@ namespace sw
 			return mInstance;
 		}
 
-		Application();
-		~Application();
 
 		void Initialize(WindowData data);
 		void Tick();
 		void Render();
 
 	private:
-		static Application mInstance;
-		WindowData mWindowDate;
+		Application();
+		~Application();
 
-		HBITMAP BitMap;
-		HBITMAP BackBitMap;
+		void initialize(WindowData data);
+
+	private:
+		static Application mInstance;
+		WindowData mWindowData;
 	};
 }
 

@@ -35,11 +35,6 @@ namespace sw
 
 	void Scene::Render(HDC hdc)
 	{
-		HBRUSH hClearBrush = (HBRUSH)GetStockObject(GRAY_BRUSH);
-		HBRUSH oldClearBrush = (HBRUSH)SelectObject(hdc, hClearBrush);
-		Rectangle(hdc, -1, -1, 1921, 1081);
-		SelectObject(hdc, oldClearBrush);
-
 		for (int i = 0; i < mObjects.size(); i++)
 		{
 			mObjects[i]->Render(hdc);
