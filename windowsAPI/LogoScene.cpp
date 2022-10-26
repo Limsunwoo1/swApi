@@ -1,5 +1,6 @@
 #include "LogoScene.h"
 #include "Player.h"
+#include "BackGround.h"
 #include "MeteorControler.h"
 
 namespace sw
@@ -16,6 +17,7 @@ namespace sw
 
 	void LogoScene::Initialize()
 	{
+		AddGameObject(new BackGround());
 		AddGameObject(new Player());
 	}
 

@@ -16,6 +16,8 @@ namespace sw
 		void Tick();
 		void Render();
 
+		WindowData GetWindowData() { return mWindowData; }
+
 	private:
 		Application();
 		~Application();

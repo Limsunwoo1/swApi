@@ -36,6 +36,15 @@
     <Filter Include="Engine\Scene\Base">
       <UniqueIdentifier>{f568c409-2abc-431c-a7bd-e77578d71d59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Resorce">
+      <UniqueIdentifier>{385b0d05-0516-47dc-be35-0a0380375cc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resorce\Base">
+      <UniqueIdentifier>{b72a8b7e-93a5-4b82-a220-518ec5d0d769}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resorce\Image">
+      <UniqueIdentifier>{ad1109d7-d96f-467f-a634-256b05ca7825}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -95,6 +104,16 @@
     <ClInclude Include="MeteorControler.h">
       <Filter>Engine\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Engine\Resorce\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Engine\Resorce\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="BackGround.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -135,6 +154,18 @@
     </ClCompile>
     <ClCompile Include="MeteorControler.cpp">
       <Filter>Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Engine\Resorce\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Engine\Resorce\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGround.cpp">
+      <Filter>main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

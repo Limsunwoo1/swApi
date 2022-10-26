@@ -5,7 +5,8 @@
 
 #include "Scene.h"
 #include "Missile.h"
-
+#include "Image.h"
+#include "ResourceManager.h"
 
 
 namespace sw
@@ -15,6 +16,11 @@ namespace sw
 	{
 		SetPos({ 100.0f, 100.0f });
 		SetScale({ 100.0f, 100.0f });
+
+		if (!mImage)
+		{
+			mImage = ResourceManager<Image>::Load(L"PLAYER", L"..\\Resource\\Image\\payer.bmp");
+		}
 	}
 
 	Player::~Player()
@@ -65,6 +71,8 @@ namespace sw
 	{
 		Vector2 pos = GetPos();
 		Vector2 scale = GetScale();
-		Rectangle(hdc, pos.x, pos.y, pos.x + scale.x, pos.y + scale.y);
+
+		BitBlt(hdc, pos.x, pos.y, mImage->GetWidth(), mImage->GetHeight()
+			, mImage->GetDC(), 0, 0, SRCCOPY);
 	}
 }

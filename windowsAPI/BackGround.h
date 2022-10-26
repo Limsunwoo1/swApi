@@ -4,17 +4,14 @@
 namespace sw
 {
 	class Image;
-	class Player : public GameObject
+	class BackGround : public GameObject
 	{
 	public:
-		Player();
-		virtual ~Player();
-
-		virtual void Tick() override;
+		BackGround();
+		virtual ~BackGround();
 		virtual void Render(HDC hdc) override;
 
 	private:
-		float mSpeed;
 		Image* mImage;
 	};
 }
