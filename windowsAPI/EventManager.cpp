@@ -1,4 +1,6 @@
 #include "EventManager.h"
+#include "SceneManager.h"
+#include "Scene.h"
 
 namespace sw
 {
@@ -14,16 +16,24 @@ namespace sw
 
 	void EventManager::Tick()
 	{
+		for (EventInfo newEvent : mEventContainer)
+		{
+			if (newEvent.Type == EventType::AddObejct) 
+			{
+				if (!newEvent.Object) 
+					continue;
 
-	}
+				SceneManager::GetPlayScene()->AddGameObject(newEvent.Object);
+			}
+			else if (newEvent.Type == EventType::DeleteObject)
+			{
+				if (!newEvent.Object)
+					continue;
 
-	void EventManager::Render()
-	{
-		int a = 0;
-	}
+				delete newEvent.Object;
+			}
+		}
 
-	void EventManager::Initilize()
-	{
-		int a = 0;
+		mEventContainer.clear();
 	}
 }

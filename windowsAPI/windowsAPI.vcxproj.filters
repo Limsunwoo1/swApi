@@ -131,7 +131,18 @@
     <ClInclude Include="Collider.h">
       <Filter>Engine\Compnent</Filter>
     </ClInclude>
-    <ClInclude Include="EventManager.h" />
+    <ClInclude Include="EventManager.h">
+      <Filter>Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="EndScene.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -198,7 +209,16 @@
       <Filter>Engine\Compnent</Filter>
     </ClCompile>
     <ClCompile Include="EventManager.cpp">
-      <Filter>main</Filter>
+      <Filter>Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="EndScene.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Engine\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

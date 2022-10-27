@@ -2,11 +2,13 @@
 #include "Input.h"
 #include "Time.h"
 #include "SceneManager.h"
+#include "ResourceManager.h"
 
 #include "Scene.h"
 #include "Missile.h"
 #include "Image.h"
-#include "ResourceManager.h"
+#include "Animator.h"
+#include "Collider.h"
 
 
 namespace sw
@@ -21,6 +23,9 @@ namespace sw
 		{
 			mImage = ResourceManager::Load<Image>(L"PLAYER", L"..\\Resource\\Image\\payer1.bmp");
 		}
+
+		AddComponent(new Animator());
+		AddComponent(new Collider());
 	}
 
 	Player::~Player()
@@ -30,6 +35,8 @@ namespace sw
 
 	void Player::Tick()
 	{
+		GameObject::Tick();
+
 		int speed = 10;
 		Vector2 pos = GetPos();
 		if (KEY_PRESSE(eKeyCode::W))
@@ -95,5 +102,7 @@ namespace sw
 			mImage->GetDC(), 
 			0, 0, mImage->GetWidth(), mImage->GetHeight(), 
 			RGB(255,0,255));
+
+		GameObject::Render(hdc);
 	}
 }

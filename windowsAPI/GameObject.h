@@ -21,6 +21,8 @@ namespace sw
 		void SetScale(Vector2 scale) { mScale = scale; }
 		Vector2 GetScale() { return mScale; }
 
+		void AddComponent(Component* component);
+
 	private:
 		std::vector<Component*> mComponents;
 		Vector2D mPos;

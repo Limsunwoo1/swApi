@@ -154,6 +154,7 @@
     <ClInclude Include="Common.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="def.h" />
+    <ClInclude Include="EndScene.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="framework.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="MeteorControler.h" />
     <ClInclude Include="Missile.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayScene.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
@@ -173,6 +175,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Time.h" />
+    <ClInclude Include="TitleScene.h" />
     <ClInclude Include="windowsAPI.h" />
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +184,7 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="EndScene.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -192,11 +196,13 @@
     <ClCompile Include="MeteorControler.cpp" />
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="windowsAPI.cpp" />
   </ItemGroup>
   <ItemGroup>

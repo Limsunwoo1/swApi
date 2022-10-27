@@ -1,5 +1,8 @@
 #include "SceneManager.h"
 #include "LogoScene.h"
+#include "TitleScene.h"
+#include "PlayScene.h"
+#include "EndScene.h"
 
 namespace sw
 {
@@ -11,6 +14,15 @@ namespace sw
 		// 모든씬들을 초기화
 		mScenes[(UINT)eSceneType::Logo] = new LogoScene();
 		mScenes[(UINT)eSceneType::Logo]->Initialize();
+
+		mScenes[(UINT)eSceneType::Title] = new TitleScene();
+		mScenes[(UINT)eSceneType::Title]->Initialize();
+
+		mScenes[(UINT)eSceneType::Play] = new PlayScene();
+		mScenes[(UINT)eSceneType::Play]->Initialize();
+
+		mScenes[(UINT)eSceneType::End] = new EndScene();
+		mScenes[(UINT)eSceneType::End]->Initialize();
 
 		// 자식 > 부모 (업캐스팅)
 		mPlayScene = mScenes[(UINT)eSceneType::Logo];
@@ -40,5 +52,20 @@ namespace sw
 			delete scene;
 			scene = nullptr;
 		}
+	}
+
+	void SceneManager::ChangeScene(eSceneType type)
+	{
+		if (mPlayScene == nullptr)
+		{
+			mPlayScene = mScenes[(UINT)eSceneType::Logo];
+		}
+		else
+		{
+			mPlayScene->Exit();
+			mPlayScene = mScenes[(UINT)type];
+		}
+
+		mPlayScene->Enter();
 	}
 }

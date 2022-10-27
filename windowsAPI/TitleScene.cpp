@@ -1,4 +1,4 @@
-#include "LogoScene.h"
+#include "TitleScene.h"
 #include "Player.h"
 #include "BackGround.h"
 #include "MeteorControler.h"
@@ -7,39 +7,46 @@
 
 namespace sw
 {
-	LogoScene::LogoScene()
+	TitleScene::TitleScene()
 	{
 
 	}
 
-	LogoScene::~LogoScene()
+	TitleScene::~TitleScene()
 	{
 		Scene::Release();
 	}
 
-	void LogoScene::Initialize()
+	void TitleScene::Initialize()
 	{
 
 	}
 
-	void LogoScene::Tick()
+	void TitleScene::Tick()
 	{
 		// 오브젝트 tick 호출한다
 		Scene::Tick();
 
 		if (KEY_DOWN(eKeyCode::N))
 		{
-			SceneManager::ChangeScene(eSceneType::Title);
+			SceneManager::ChangeScene(eSceneType::Play);
 		}
 	}
 
-	void LogoScene::Render(HDC hdc)
+	void TitleScene::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
 
 		wchar_t szFloat[50] = {};
-		swprintf_s(szFloat, 50, L"Logo Scene");
+		swprintf_s(szFloat, 50, L"Title Scene");
 		int strLen = wcsnlen_s(szFloat, 50);
 		TextOut(hdc, 10, 30, szFloat, strLen);
+	}
+
+	void TitleScene::Enter()
+	{
+	}
+	void TitleScene::Exit()
+	{
 	}
 }

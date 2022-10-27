@@ -20,12 +20,15 @@ namespace sw
 		void Clear();
 
 		WindowData GetWindowData() { return mWindowData; }
+		const HPEN &GetPen(ePenColor color)const { return mPens[(UINT)color]; }
+		const HBRUSH &GetBrush(eBrushColor color)const { return mBrushes[(UINT)color]; }
 
 	private:
 		Application();
 		~Application();
 
 		void initialize(WindowData data);
+		void Distroyer();
 
 	private:
 		//static Application mInstance;

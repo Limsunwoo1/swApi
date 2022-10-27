@@ -10,17 +10,16 @@ namespace sw
 
 	Scene::~Scene()
 	{
-		for (int i = 0; i < mObjects.size(); i++)
-		{
-			delete mObjects[i];
-			mObjects[i] = nullptr;
-		}
+		
 	}
 
 	void Scene::Initialize()
 	{
 		for (int i = 0; i < mObjects.size(); i++)
 		{
+			if (!mObjects[i])
+				continue;
+
 			mObjects[i]->Initialize();
 		}
 	}
@@ -29,6 +28,9 @@ namespace sw
 	{
 		for (int i = 0; i < mObjects.size(); i++)
 		{
+			if (!mObjects[i])
+				continue;
+
 			mObjects[i]->Tick();
 		}
 	}
@@ -37,6 +39,9 @@ namespace sw
 	{
 		for (int i = 0; i < mObjects.size(); i++)
 		{
+			if (!mObjects[i])
+				continue;
+
 			mObjects[i]->Render(hdc);
 		}
 	}
@@ -45,6 +50,27 @@ namespace sw
 	{
 		if (object == nullptr)
 			return;
+
 		mObjects.push_back(object);
+	}
+
+	void Scene::Enter()
+	{
+	}
+
+	void Scene::Exit()
+	{
+	}
+
+	void Scene::Release()
+	{
+		for (int i = 0; i < mObjects.size(); i++)
+		{
+			if (!mObjects[i])
+				continue;
+
+			delete mObjects[i];
+			mObjects[i] = nullptr;
+		}
 	}
 }

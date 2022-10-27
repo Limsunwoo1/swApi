@@ -1,6 +1,7 @@
 #include "MeteorControler.h"
 #include <ctime>
 #include "Time.h"
+#include "EventManager.h"
 #include "SceneManager.h"
 #include "Scene.h"
 #include "Meteor.h"
@@ -17,19 +18,22 @@ namespace sw
 		}
 
 		mDeltaTime += Time::DeltaTime();
-		/*if (mDeltaTime > 1.0f)
+		if (mDeltaTime > 1.0f)
 		{
 			Meteor* meteor = new Meteor();
 			float x = rand() % 1921;
 			meteor->SetPos({x, -1});
 
+			// Event»ý¼º
+			EventInfo info;
+			info.Type = EventType::AddObejct;
+			info.Object = meteor;
+			EventManager::GetInstance()->EventPush(info);
 
-			Scene* scene = SceneManager::GetPlayScene();
-			scene->AddGameObject(meteor);
 			Meteors.push_back(meteor);
 
 			mDeltaTime -= 0.5f;
-		}*/
+		}
 	}
 	void MeteorControler::Render(HDC hdc)
 	{

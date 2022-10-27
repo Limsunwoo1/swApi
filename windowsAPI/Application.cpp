@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "ResourceManager.h"
 #include "SceneManager.h"
+#include "EventManager.h"
 #include "Time.h"
 #include "Input.h"
 
@@ -74,6 +75,9 @@ namespace sw
 		SceneManager::Tick();
 
 		Application::Render();
+
+		// 모든 업데이트 렌더링 후 add, delete 
+		EventManager::GetInstance()->Tick();
 	}
 
 	void Application::Render()
@@ -98,8 +102,7 @@ namespace sw
 
 	void Application::Clear()
 	{
-		SceneManager::Release();
-		ResourceManager::Release();
+		Application::Distroyer();
 
 		ReleaseDC(mWindowData.hWnd, mWindowData.hdc);
 		ReleaseDC(mWindowData.hWnd, mWindowData.backbuffer);
@@ -119,5 +122,14 @@ namespace sw
 
 			DeleteObject(brush);
 		}
+	}
+
+	void Application::Distroyer()
+	{
+		// 매니저 클래스 인스턴스 해제
+		EventManager::GetInstance()->DistroyInstance();
+		SceneManager::Release();
+		ResourceManager::Release();
+
 	}
 }

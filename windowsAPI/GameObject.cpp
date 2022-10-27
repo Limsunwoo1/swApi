@@ -11,6 +11,14 @@ namespace sw
 
 	GameObject::~GameObject()
 	{
+		for (Component* com : mComponents)
+		{
+			if (!com)
+				continue;
+
+			delete com;
+			com = nullptr;
+		}
 	}
 
 	void GameObject::Initialize()
@@ -38,5 +46,14 @@ namespace sw
 
 			component->Render(hdc);
 		}
+	}
+
+	void GameObject::AddComponent(Component* component)
+	{
+		if (component == nullptr)
+			return;
+
+		mComponents.push_back(component);
+		component->mOwner = this;
 	}
 }
