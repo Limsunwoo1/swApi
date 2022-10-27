@@ -131,6 +131,7 @@
     <ClInclude Include="Collider.h">
       <Filter>Engine\Compnent</Filter>
     </ClInclude>
+    <ClInclude Include="EventManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -195,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="Collider.cpp">
       <Filter>Engine\Compnent</Filter>
+    </ClCompile>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
