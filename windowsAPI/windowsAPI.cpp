@@ -98,6 +98,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     if (WM_QUIT == msg.message)
     {
         // 메모리 해제 작업
+        sw::Application::GetInstance().Clear();
     }
 
     return (int) msg.wParam;

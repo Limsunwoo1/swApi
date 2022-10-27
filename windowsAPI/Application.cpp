@@ -16,27 +16,7 @@ namespace sw
 
 	Application::~Application()
 	{
-		SceneManager::Release();
-		ResourceManager::Release();
 
-		ReleaseDC(mWindowData.hWnd, mWindowData.hdc);
-		ReleaseDC(mWindowData.hWnd, mWindowData.backbuffer);
-
-		for (HPEN pen : mPens)
-		{
-			if (!pen) 
-				continue;
-
-			DeleteObject(pen);
-		}
-
-		for (HBRUSH brush : mBrushes)
-		{
-			if (!brush)
-				continue;
-
-			DeleteObject(brush);
-		}
 	}
 
 	void Application::Initialize(WindowData data)
@@ -46,7 +26,6 @@ namespace sw
 		Time::Initialize();
 		Input::Initialize();
 		SceneManager::Initalize();
-
 	}
 		
 	void Application::initialize(WindowData data)
@@ -115,5 +94,30 @@ namespace sw
 		BitBlt(mWindowData.hdc, 0, 0, mWindowData.width, mWindowData.height,
 			mWindowData.backbuffer, 0, 0, SRCCOPY);
 		// ===========================================
+	}
+
+	void Application::Clear()
+	{
+		SceneManager::Release();
+		ResourceManager::Release();
+
+		ReleaseDC(mWindowData.hWnd, mWindowData.hdc);
+		ReleaseDC(mWindowData.hWnd, mWindowData.backbuffer);
+
+		for (HPEN pen : mPens)
+		{
+			if (!pen)
+				continue;
+
+			DeleteObject(pen);
+		}
+
+		for (HBRUSH brush : mBrushes)
+		{
+			if (!brush)
+				continue;
+
+			DeleteObject(brush);
+		}
 	}
 }

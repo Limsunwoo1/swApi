@@ -17,6 +17,8 @@ namespace sw
 		void Tick();
 		void Render();
 
+		void Clear();
+
 		WindowData GetWindowData() { return mWindowData; }
 
 	private:
@@ -28,6 +30,8 @@ namespace sw
 	private:
 		//static Application mInstance;
 		WindowData mWindowData;
+
+
 		HPEN mPens[(UINT)ePenColor::End];
 		HBRUSH mBrushes[(UINT)eBrushColor::End];
 	};
