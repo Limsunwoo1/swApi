@@ -25,9 +25,9 @@ namespace sw
 			meteor->SetPos({x, -1});
 
 			// Event»ý¼º
-			EventInfo info;
-			info.Type = EventType::AddObejct;
-			info.Object = meteor;
+			EventInfo* info = new EventInfo();
+			info->Type = EventType::AddObejct;
+			info->Object = meteor;
 			EventManager::GetInstance()->EventPush(info);
 
 			Meteors.push_back(meteor);
