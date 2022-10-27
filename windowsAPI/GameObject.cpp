@@ -1,5 +1,5 @@
 #include "GameObject.h"
-
+#include "Component.h"
 
 namespace sw
 {
@@ -19,9 +19,24 @@ namespace sw
 
 	void GameObject::Tick()
 	{
+		for (Component* component : mComponents)
+		{
+			if (component == nullptr)
+				continue;
+
+			component->Tick();
+		}
 	}
 
 	void GameObject::Render(HDC hdc)
 	{
+		// 모든 컴포넌트를 Render 호출
+		for (Component* component : mComponents)
+		{
+			if (component == nullptr)
+				continue;
+
+			component->Render(hdc);
+		}
 	}
 }

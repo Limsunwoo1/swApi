@@ -1,11 +1,12 @@
 #include "Application.h"
+#include "ResourceManager.h"
 #include "SceneManager.h"
 #include "Time.h"
 #include "Input.h"
 
 namespace sw
 {
-	Application Application::mInstance;
+	//Application Application::mInstance;
 
 
 	Application::Application()
@@ -16,9 +17,26 @@ namespace sw
 	Application::~Application()
 	{
 		SceneManager::Release();
+		ResourceManager::Release();
 
 		ReleaseDC(mWindowData.hWnd, mWindowData.hdc);
 		ReleaseDC(mWindowData.hWnd, mWindowData.backbuffer);
+
+		for (HPEN pen : mPens)
+		{
+			if (!pen) 
+				continue;
+
+			DeleteObject(pen);
+		}
+
+		for (HBRUSH brush : mBrushes)
+		{
+			if (!brush)
+				continue;
+
+			DeleteObject(brush);
+		}
 	}
 
 	void Application::Initialize(WindowData data)
@@ -58,6 +76,16 @@ namespace sw
 			= (HBITMAP)SelectObject(mWindowData.backbuffer, mWindowData.backTexture);
 		
 		DeleteObject(dafaultBitmap);
+
+		// 메모리 해재 해주어야한다.
+		mPens[(UINT)ePenColor::Red] = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
+		mPens[(UINT)ePenColor::Green] = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
+		mPens[(UINT)ePenColor::Blue] = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
+
+		mBrushes[(UINT)eBrushColor::Transparent] = (HBRUSH)GetStockObject(HOLLOW_BRUSH);
+		mBrushes[(UINT)eBrushColor::Black] = (HBRUSH)GetStockObject(BLACK_BRUSH);
+		mBrushes[(UINT)eBrushColor::Gray] = CreateSolidBrush(RGB(71, 71, 71));
+		mBrushes[(UINT)eBrushColor::White] = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	}
 
 	void Application::Tick()
@@ -78,10 +106,10 @@ namespace sw
 
 		// 더블 버퍼링
 		// ===========================================
+		SceneManager::Render(mWindowData.backbuffer);
+
 		Time::Render(mWindowData.backbuffer);
 		Input::Render(mWindowData.backbuffer);
-
-		SceneManager::Render(mWindowData.backbuffer);
 
 		// BitBle 함수는 DC간에 이미지를 복사 해주는 함수
 		BitBlt(mWindowData.hdc, 0, 0, mWindowData.width, mWindowData.height,

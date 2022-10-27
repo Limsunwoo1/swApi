@@ -12,3 +12,28 @@ enum class eSceneType
 	End,
 	Max,
 };
+
+enum class ePenColor
+{
+	Red,
+	Green,
+	Blue,
+	End,
+};
+
+enum class eBrushColor
+{
+	Transparent, // ≈ı∏Ì
+	Black,
+	Gray, // 71, 71, 71
+	White,
+	End,
+};
+
+enum class eComponentType
+{
+	Animator,
+	Collider,
+	Sound,
+	End
+};

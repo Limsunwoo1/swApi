@@ -45,6 +45,12 @@
     <Filter Include="Engine\Resorce\Image">
       <UniqueIdentifier>{ad1109d7-d96f-467f-a634-256b05ca7825}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Compnent">
+      <UniqueIdentifier>{a0b50962-d9c8-4573-8a6a-c5aef59997f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Compnent\Base">
+      <UniqueIdentifier>{a9c2c2cb-e3be-4448-a874-ef27b86270d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -113,7 +119,18 @@
     <ClInclude Include="ResourceManager.h">
       <Filter>Engine\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="BackGround.h" />
+    <ClInclude Include="BackGround.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Engine\Compnent\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Engine\Compnent</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Engine\Compnent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -164,8 +181,20 @@
     <ClCompile Include="ResourceManager.cpp">
       <Filter>Engine\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="Maths.cpp">
+      <Filter>Engine\Commne</Filter>
+    </ClCompile>
     <ClCompile Include="BackGround.cpp">
-      <Filter>main</Filter>
+      <Filter>Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Engine\Compnent\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Engine\Compnent</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Engine\Compnent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

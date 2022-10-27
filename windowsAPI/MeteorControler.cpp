@@ -17,7 +17,7 @@ namespace sw
 		}
 
 		mDeltaTime += Time::DeltaTime();
-		if (mDeltaTime > 1.0f)
+		/*if (mDeltaTime > 1.0f)
 		{
 			Meteor* meteor = new Meteor();
 			float x = rand() % 1921;
@@ -29,7 +29,7 @@ namespace sw
 			Meteors.push_back(meteor);
 
 			mDeltaTime -= 0.5f;
-		}
+		}*/
 	}
 	void MeteorControler::Render(HDC hdc)
 	{

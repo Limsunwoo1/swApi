@@ -15,11 +15,11 @@ namespace sw
 		: mSpeed(1.0f)
 	{
 		SetPos({ 100.0f, 100.0f });
-		SetScale({ 100.0f, 100.0f });
+		SetScale({ 3.0f, 3.0f });
 
 		if (!mImage)
 		{
-			mImage = ResourceManager<Image>::Load(L"PLAYER", L"..\\Resource\\Image\\payer.bmp");
+			mImage = ResourceManager::Load<Image>(L"PLAYER", L"..\\Resource\\Image\\payer1.bmp");
 		}
 	}
 
@@ -72,7 +72,28 @@ namespace sw
 		Vector2 pos = GetPos();
 		Vector2 scale = GetScale();
 
-		BitBlt(hdc, pos.x, pos.y, mImage->GetWidth(), mImage->GetHeight()
-			, mImage->GetDC(), 0, 0, SRCCOPY);
+
+		Vector2 finalPos;
+		finalPos.x = (pos.x - mImage->GetWidth() * (scale.x / 2.0f));
+		finalPos.y = (pos.y - mImage->GetHeight() * (scale.y / 2.0f));
+
+		Vector2 rect;
+		rect.x = mImage->GetWidth() * scale.x;
+		rect.y = mImage->GetHeight() * scale.y;
+
+		/*TransparentBlt(hdc,
+			(float)pos.x - (scale.x * 0.5), (float)pos.y - (scale.y * 0.5),
+			scale.x, scale.y,
+			mImage->GetDC(),
+			0, 0, mImage->GetWidth(), mImage->GetHeight(),
+			RGB(255, 0, 255));*/
+
+
+		TransparentBlt(hdc, 
+			finalPos.x, finalPos.y,
+			rect.x, rect.y,
+			mImage->GetDC(), 
+			0, 0, mImage->GetWidth(), mImage->GetHeight(), 
+			RGB(255,0,255));
 	}
 }

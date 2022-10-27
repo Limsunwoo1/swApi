@@ -11,6 +11,8 @@
 #include "Maths.h"
 
 
+#pragma comment(lib, "Msimg32.lib")
+
 
 struct WindowData
 {

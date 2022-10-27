@@ -4,12 +4,12 @@
 
 namespace sw
 {
-	template <typename T>
 	class ResourceManager
 	{
 	public:
 		typedef std::map<std::wstring, Texture*>::iterator ResourceIter;
 
+		template <typename T>
 		static T* Find(const std::wstring& key)
 		{
 			ResourceIter iter = mResource.find(key);
@@ -23,9 +23,10 @@ namespace sw
 			return nullptr;
 		}
 
+		template <typename T>
 		static T* Load(const std::wstring& key, const std::wstring& path)
 		{
-			T* resource = Find(key);
+			T* resource = Find<T>(key);
 			// 해당 키로 이미 로딩된게 있으면 리소스를 반환
 			if (resource)
 				return resource;
@@ -35,6 +36,7 @@ namespace sw
 			if (FAILED(resource->Load(path)))
 			{
 				MessageBox(nullptr, L"image Load Failed!!", L"Error", MB_OK);
+				return nullptr;
 			}
 
 			resource->SetKey(key);
@@ -45,11 +47,21 @@ namespace sw
 			return dynamic_cast<T*>(resource);
 		}
 
+		static void Release(void)
+		{
+			ResourceIter iter = mResource.begin();
+			for (; iter != mResource.end(); ++iter)
+			{
+				if (iter->second == nullptr)
+					continue;
+
+				delete (iter->second);
+				iter->second = nullptr;
+			}
+		}
+
 	private:
 		static std::map<std::wstring, Texture*> mResource;
 	};
-
-	template<typename T>
-	std::map<std::wstring, Texture*> ResourceManager<T>::mResource;
 }
 

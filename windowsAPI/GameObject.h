@@ -1,6 +1,7 @@
 #pragma once
 #include "Common.h"
 #include "Entity.h"
+#include "Component.h"
 
 namespace sw
 {
@@ -21,6 +22,7 @@ namespace sw
 		Vector2 GetScale() { return mScale; }
 
 	private:
+		std::vector<Component*> mComponents;
 		Vector2D mPos;
 		Vector2D mScale;
 	};

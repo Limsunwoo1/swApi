@@ -26,6 +26,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
+    // 메모리 누수를 체크해주는 함수
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
+
     // 1. wndclass 정의 윈도우의 기반(여러가지 속성)이되는 클래스를 정의해준다.
     // 
     // 2. 메모리상에우니도우를 할당해야한다. (CreatWindow)

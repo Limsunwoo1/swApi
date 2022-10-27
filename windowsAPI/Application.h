@@ -8,6 +8,7 @@ namespace sw
 	public:
 		static Application& GetInstance()
 		{
+			static Application mInstance;
 			return mInstance;
 		}
 
@@ -25,8 +26,10 @@ namespace sw
 		void initialize(WindowData data);
 
 	private:
-		static Application mInstance;
+		//static Application mInstance;
 		WindowData mWindowData;
+		HPEN mPens[(UINT)ePenColor::End];
+		HBRUSH mBrushes[(UINT)eBrushColor::End];
 	};
 }
 
