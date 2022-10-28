@@ -2,5 +2,13 @@
 
 namespace sw
 {
-	std::map<std::wstring, Texture*> ResourceManager::mResource;
+	ResourceManager::ResourceManager()
+	{
+
+	}
+
+	ResourceManager::~ResourceManager()
+	{
+
+	}
 }

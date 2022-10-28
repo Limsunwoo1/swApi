@@ -7,10 +7,15 @@ namespace sw
 	static float AccDeltaTime = 0.0f;
 	static int fps = 0;
 
-	LARGE_INTEGER Time::mCpuFrequency;
-	LARGE_INTEGER Time::mPrevFrequency;
-	LARGE_INTEGER Time::mCurFrequency;
-	float Time::mDeltaTime;
+	Time::Time()
+	{
+
+	}
+
+	Time::~Time()
+	{
+
+	}
 
 	void Time::Initialize()
 	{

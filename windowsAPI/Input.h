@@ -37,6 +37,8 @@ namespace sw
 
 	class Input
 	{
+		SINGLE(Input);
+
 	public:
 		struct Key
 		{
@@ -48,13 +50,13 @@ namespace sw
 		};
 
 	public:
-		static void Initialize();
-		static void Tick();
-		static void Render(HDC hdc);
-		static eKeyState GetkeyState(eKeyCode keycode);
+		void Initialize();
+		void Tick();
+		void Render(HDC hdc);
+		eKeyState GetkeyState(eKeyCode keycode);
 
 	private:
-		static std::vector<Key> mKeys;
+		 std::vector<Key> mKeys;
 	};
 }
 

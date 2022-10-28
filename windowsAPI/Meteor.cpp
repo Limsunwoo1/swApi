@@ -18,7 +18,7 @@ namespace sw
 
 	void Meteor::Tick()
 	{
-		float delta = Time::DeltaTime();
+		float delta = Time::GetInstance()->DeltaTime();
 		Vector2D pos = GetPos();
 
 		if (pos.y > 1080)

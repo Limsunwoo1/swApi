@@ -10,7 +10,7 @@ namespace sw
 		, mPos(Vector2::Zero)
 		, mScale(Vector2::One)
 	{
-		mScale = Vector2(100.0f, 100.0f);
+		mScale = Vector2(150.0f, 150.0f);
 	}
 
 	Collider::~Collider()

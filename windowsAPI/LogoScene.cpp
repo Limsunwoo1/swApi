@@ -29,7 +29,7 @@ namespace sw
 
 		if (KEY_DOWN(eKeyCode::N))
 		{
-			SceneManager::ChangeScene(eSceneType::Title);
+			SceneManager::GetInstance()->ChangeScene(eSceneType::Title);
 		}
 	}
 

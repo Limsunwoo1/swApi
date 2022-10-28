@@ -21,7 +21,7 @@ namespace sw
 
 		if (!mImage)
 		{
-			mImage = ResourceManager::Load<Image>(L"PLAYER", L"..\\Resource\\Image\\payer1.bmp");
+			mImage = ResourceManager::GetInstance()->Load<Image>(L"PLAYER", L"..\\Resource\\Image\\payer1.bmp");
 		}
 
 		AddComponent(new Animator());
@@ -41,26 +41,26 @@ namespace sw
 		Vector2 pos = GetPos();
 		if (KEY_PRESSE(eKeyCode::W))
 		{
-			pos.y -= 120.0f * Time::DeltaTime() * speed;
+			pos.y -= 120.0f * Time::GetInstance()->DeltaTime() * speed;
 		}
 		if (KEY_PRESSE(eKeyCode::S))
 		{
-			pos.y += 120.0f * Time::DeltaTime() * speed;
+			pos.y += 120.0f * Time::GetInstance()->DeltaTime() * speed;
 		}
 		if (KEY_PRESSE(eKeyCode::A))
 		{
-			pos.x -= 120.0f * Time::DeltaTime() * speed;
+			pos.x -= 120.0f * Time::GetInstance()->DeltaTime() * speed;
 		}
 		if (KEY_PRESSE(eKeyCode::D))
 		{
-			pos.x += 120.0f * Time::DeltaTime() * speed;
+			pos.x += 120.0f * Time::GetInstance()->DeltaTime() * speed;
 		}
 
 		if (KEY_DOWN(eKeyCode::SPACE))
 		{
 			Missile* missile = new Missile();
 
-			Scene* playScene = SceneManager::GetPlayScene();
+			Scene* playScene = SceneManager::GetInstance()->GetPlayScene();
 			playScene->AddGameObject(missile);
 
 			Vector2D playerpos = GetPos();

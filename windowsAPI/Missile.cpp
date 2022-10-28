@@ -17,7 +17,7 @@ void sw::Missile::Tick()
 {
 	Vector2D pos = GetPos();
 
-	pos.y -= 500.0f * Time::DeltaTime();
+	pos.y -= 500.0f * Time::GetInstance()->DeltaTime();
 
 	SetPos(pos);
 }

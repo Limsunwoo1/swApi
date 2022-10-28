@@ -23,7 +23,7 @@ namespace sw
 				if (!newEvent->Object) 
 					continue;
 
-				SceneManager::GetPlayScene()->AddGameObject(newEvent->Object);
+				SceneManager::GetInstance()->GetPlayScene()->AddGameObject(newEvent->Object);
 			}
 			else if (newEvent->Type == EventType::DeleteObject)
 			{

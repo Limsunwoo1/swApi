@@ -6,8 +6,15 @@
 
 namespace sw
 {
-	Scene* SceneManager::mScenes[(UINT)eSceneType::Max] = {};
-	Scene* SceneManager::mPlayScene = nullptr;
+	SceneManager::SceneManager()
+	{
+
+	}
+
+	SceneManager::~SceneManager()
+	{
+
+	}
 
 	void SceneManager::Initalize()
 	{

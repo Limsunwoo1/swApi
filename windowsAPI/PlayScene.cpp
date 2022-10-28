@@ -36,7 +36,7 @@ namespace sw
 
 		if (KEY_DOWN(eKeyCode::N))
 		{
-			SceneManager::ChangeScene(eSceneType::End);
+			SceneManager::GetInstance()->ChangeScene(eSceneType::End);
 		}
 	}
 

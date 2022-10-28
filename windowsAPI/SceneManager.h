@@ -8,18 +8,20 @@ namespace sw
 
 	class SceneManager
 	{
+		SINGLE(SceneManager);
+
 	public:
-		static void Initalize();
-		static void Tick();
-		static void Render(HDC hdc);
-		static void Release();
+		void Initalize();
+		void Tick();
+		void Render(HDC hdc);
+		void Release();
 
-		static void ChangeScene(eSceneType type);
+		void ChangeScene(eSceneType type);
 
-		static Scene* GetPlayScene() { return mPlayScene; }
+		Scene* GetPlayScene() { return mPlayScene; }
 
 	private:
-		static Scene* mScenes[(UINT)eSceneType::Max];
-		static Scene* mPlayScene;
+		Scene* mScenes[(UINT)eSceneType::Max];
+		Scene* mPlayScene;
 	};
 }

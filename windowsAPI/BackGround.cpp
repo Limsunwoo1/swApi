@@ -54,6 +54,6 @@ namespace sw
 		std::wstring path = L"..\\Resource\\Image\\";
 		path += filename;
 
-		mImage = ResourceManager::Load<Image>(key, path);
+		mImage = ResourceManager::GetInstance()->Load<Image>(key, path);
 	}
 }

@@ -24,9 +24,9 @@ namespace sw
 	{
 		Application::initialize(data);
 
-		Time::Initialize();
-		Input::Initialize();
-		SceneManager::Initalize();
+		Time::GetInstance()->Initialize();
+		Input::GetInstance()->Initialize();
+		SceneManager::GetInstance()->Initalize();
 	}
 		
 	void Application::initialize(WindowData data)
@@ -70,9 +70,9 @@ namespace sw
 
 	void Application::Tick()
 	{
-		Time::Tick();
-		Input::Tick();
-		SceneManager::Tick();
+		Time::GetInstance()->Tick();
+		Input::GetInstance()->Tick();
+		SceneManager::GetInstance()->Tick();
 
 		Application::Render();
 
@@ -89,10 +89,10 @@ namespace sw
 
 		// 더블 버퍼링
 		// ===========================================
-		SceneManager::Render(mWindowData.backbuffer);
+		SceneManager::GetInstance()->Render(mWindowData.backbuffer);
 
-		Time::Render(mWindowData.backbuffer);
-		Input::Render(mWindowData.backbuffer);
+		Time::GetInstance()->Render(mWindowData.backbuffer);
+		Input::GetInstance()->Render(mWindowData.backbuffer);
 
 		// BitBle 함수는 DC간에 이미지를 복사 해주는 함수
 		BitBlt(mWindowData.hdc, 0, 0, mWindowData.width, mWindowData.height,
@@ -127,9 +127,14 @@ namespace sw
 	void Application::Distroyer()
 	{
 		// 매니저 클래스 인스턴스 해제
-		EventManager::GetInstance()->DistroyInstance();
-		SceneManager::Release();
-		ResourceManager::Release();
+		SceneManager::GetInstance()->Release();
+		ResourceManager::GetInstance()->Release();
 
+
+		SceneManager::GetInstance()->DistroyInstance();
+		ResourceManager::GetInstance()->DistroyInstance();
+		Time::GetInstance()->DistroyInstance();
+		Input::GetInstance()->DistroyInstance();
+		EventManager::GetInstance()->DistroyInstance();
 	}
 }

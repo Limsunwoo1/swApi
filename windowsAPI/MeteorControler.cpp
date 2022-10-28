@@ -17,7 +17,7 @@ namespace sw
 			obj->Tick();
 		}
 
-		mDeltaTime += Time::DeltaTime();
+		mDeltaTime += Time::GetInstance()->DeltaTime();
 		if (mDeltaTime > 1.0f)
 		{
 			Meteor* meteor = new Meteor();
