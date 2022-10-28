@@ -6,6 +6,7 @@
 #include <vector>
 #include <list>
 #include <map>
+#include <queue>
 
 #include "def.h"
 #include "Maths.h"

@@ -26,14 +26,14 @@ namespace sw
 
 	void Collider::Render(HDC hdc)
 	{
-		HPEN green = Application::GetInstance().GetPen(ePenColor::Green);
+		const HPEN& green = Application::GetInstance().GetPen(ePenColor::Green);
 		Pen pen(hdc, green);
 
 		HBRUSH tr = Application::GetInstance().GetBrush(eBrushColor::Transparent);
 		Brush brush(hdc, tr);
 
-		HPEN red = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
-		Pen pen1(hdc, red);
+		/*HPEN red = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
+		Pen pen1(hdc, red);*/
 
 		Rectangle(hdc, mPos.x - (mScale.x * 0.5), mPos.y - (mScale.y * 0.5)
 			,mPos.x + (mScale.x * 0.5), mPos.y + (mScale.y * 0.5));

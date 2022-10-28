@@ -16,26 +16,25 @@ namespace sw
 
 	void EventManager::Tick()
 	{
-		for (EventInfo* newEvent : mEventContainer)
+		while (!mEventContainer.empty())
 		{
-			if (newEvent->Type == EventType::AddObejct) 
+			EventInfo* NewEvent = mEventContainer.front();
+			if (NewEvent->Type == EventType::AddObejct)
 			{
-				if (!newEvent->Object) 
+				if (!NewEvent->Object)
 					continue;
 
-				SceneManager::GetInstance()->GetPlayScene()->AddGameObject(newEvent->Object);
+				SceneManager::GetInstance()->GetPlayScene()->AddGameObject(NewEvent->Object);
 			}
-			else if (newEvent->Type == EventType::DeleteObject)
+			else if (NewEvent->Type == EventType::DeleteObject)
 			{
-				if (!newEvent->Object)
+				if (!NewEvent->Object)
 					continue;
 
-				delete newEvent->Object;
+				delete NewEvent->Object;
 			}
 
-			delete newEvent;
+			mEventContainer.pop();
 		}
-
-		mEventContainer.clear();
 	}
 }

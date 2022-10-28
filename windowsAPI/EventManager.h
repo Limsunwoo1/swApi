@@ -30,10 +30,10 @@ namespace sw
 
 	public:
 		void Tick();
-		void EventPush(EventInfo* InEvent) { mEventContainer.push_back(InEvent); }
+		void EventPush(EventInfo* InEvent) { mEventContainer.push(InEvent); }
 
 	private:
-		std::vector<EventInfo*> mEventContainer;
+		std::queue<EventInfo*> mEventContainer;
 	};
 }
 
