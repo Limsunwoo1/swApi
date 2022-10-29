@@ -61,3 +61,20 @@ enum class eComponentType
 	Sound,
 	End
 };
+
+#define COLLIDER_LAYER 16
+
+enum class eColliderLayer : short
+{
+	Default,
+	BackGround,
+	Tile,
+	Player,
+	Player_ProjectTile,
+	Monster,
+	Monster_ProjectTile,
+
+
+	UI = COLLIDER_LAYER - 1,
+	END = COLLIDER_LAYER,
+};

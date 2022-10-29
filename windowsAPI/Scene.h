@@ -19,11 +19,12 @@ namespace sw
 		virtual void Enter();
 		virtual void Exit();
 
-		void AddGameObject(GameObject* object);
+		void AddGameObject(GameObject* object, eColliderLayer type);
+		void DeleteGameObject(GameObject* object, eColliderLayer type);
 
 		virtual void Release();
 
 	private:
-		std::vector<GameObject*> mObjects;
+		std::vector<std::vector<GameObject*>> mObjects;
 	};
 }

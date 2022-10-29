@@ -61,7 +61,7 @@ namespace sw
 			Missile* missile = new Missile();
 
 			Scene* playScene = SceneManager::GetInstance()->GetPlayScene();
-			playScene->AddGameObject(missile);
+			playScene->AddGameObject(missile, eColliderLayer::Player_ProjectTile);
 
 			Vector2D playerpos = GetPos();
 			Vector2D playerscale = GetScale() / 2.0f;

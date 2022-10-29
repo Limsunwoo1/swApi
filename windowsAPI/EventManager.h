@@ -16,11 +16,17 @@ namespace sw
 	struct EventInfo
 	{
 		EventType Type;
-		GameObject* Object;
+		void* Parameter1;
+		void* Parameter2;
+		void* Parameter3;
 
-		EventInfo() : Type(EventType::NONE), Object(nullptr) {};
-		EventInfo(EventType InType) : Type(InType), Object(nullptr) {};
-		EventInfo(EventType InType, GameObject* InObject) : Type(InType), Object(InObject) {};
+
+		EventInfo() : Type(EventType::NONE), Parameter1(nullptr), Parameter2(nullptr), Parameter3(nullptr) {};
+		EventInfo(EventType InType) : Type(InType), Parameter1(nullptr), Parameter2(nullptr), Parameter3(nullptr) {};
+		EventInfo(EventType InType, void* InParameter1) : Type(InType), Parameter1(InParameter1), Parameter2(nullptr), Parameter3(nullptr)  {};
+		EventInfo(EventType InType, void* InParameter1, void* InParameter2) : Type(InType), Parameter1(InParameter1), Parameter2(InParameter2), Parameter3(nullptr) {};
+		EventInfo(EventType InType, void* InParameter1, void* InParameter2, void* InParameter3) : Type(InType), Parameter1(InParameter1), Parameter2(InParameter2), Parameter3(InParameter3) {};
+
 		~EventInfo() = default;
 	};
 
@@ -30,10 +36,10 @@ namespace sw
 
 	public:
 		void Tick();
-		void EventPush(EventInfo* InEvent) { mEventContainer.push(InEvent); }
+		void EventPush(EventInfo& InEvent) { mEventList.push(InEvent); }
 
 	private:
-		std::queue<EventInfo*> mEventContainer;
+		std::queue<EventInfo> mEventList;
 	};
 }
 

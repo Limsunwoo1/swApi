@@ -12,10 +12,13 @@ namespace sw
 
 	void MeteorControler::Tick()
 	{
-		for (GameObject* obj : Meteors)
+		/*for (GameObject* obj : Meteors)
 		{
+			if (!obj)
+				continue;
+
 			obj->Tick();
-		}
+		}*/
 
 		mDeltaTime += Time::GetInstance()->DeltaTime();
 		if (mDeltaTime > 1.0f)
@@ -25,9 +28,10 @@ namespace sw
 			meteor->SetPos({x, -1});
 
 			// Event»ı¼º
-			EventInfo* info = new EventInfo();
-			info->Type = EventType::AddObejct;
-			info->Object = meteor;
+			EventInfo info;
+			info.Type = EventType::AddObejct;
+			info.Parameter1 = new eColliderLayer(eColliderLayer::Monster_ProjectTile);
+			info.Parameter2 = meteor;
 			EventManager::GetInstance()->EventPush(info);
 
 			Meteors.push_back(meteor);
@@ -37,8 +41,19 @@ namespace sw
 	}
 	void MeteorControler::Render(HDC hdc)
 	{
+		int cnt = 1;
 		for (GameObject* obj : Meteors)
 		{
+			if (cnt == 0)
+			{
+				EventInfo info;
+				info.Type = EventType::DeleteObject;
+				info.Parameter1 = new eColliderLayer(eColliderLayer::Monster_ProjectTile);
+				info.Parameter2 = obj;
+				EventManager::GetInstance()->EventPush(info);
+				cnt++;
+			}
+
 			int r = rand() % 255;
 			int g = rand() % 255;
 			int b = rand() % 255;

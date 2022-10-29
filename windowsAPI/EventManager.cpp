@@ -16,25 +16,33 @@ namespace sw
 
 	void EventManager::Tick()
 	{
-		while (!mEventContainer.empty())
+		while (!mEventList.empty())
 		{
-			EventInfo* NewEvent = mEventContainer.front();
-			if (NewEvent->Type == EventType::AddObejct)
+			EventInfo& NewEvent = mEventList.front();
+
+			switch (NewEvent.Type)
 			{
-				if (!NewEvent->Object)
-					continue;
+				case EventType::AddObejct:
+					{
+						if (NewEvent.Parameter2)
+						{
+							SceneManager::GetInstance()->GetPlayScene()->
+								AddGameObject(
+									(GameObject*)NewEvent.Parameter2,
+									*((eColliderLayer*)NewEvent.Parameter1));
+						}
+					}
+					break;
 
-				SceneManager::GetInstance()->GetPlayScene()->AddGameObject(NewEvent->Object);
+				case EventType::DeleteObject:
+					{
+						// iter 를 이용하여 scene에 백터 크기도 줄여줘야한다
+					}
+					break;
 			}
-			else if (NewEvent->Type == EventType::DeleteObject)
-			{
-				if (!NewEvent->Object)
-					continue;
 
-				delete NewEvent->Object;
-			}
-
-			mEventContainer.pop();
+			delete NewEvent.Parameter1;
+			mEventList.pop();
 		}
 	}
 }

@@ -24,8 +24,8 @@ namespace sw
 		bg->Initialize();
 
 
-		AddGameObject(bg);
-		AddGameObject(new Player());
+		AddGameObject(bg,eColliderLayer::BackGround);
+		AddGameObject(new Player(),eColliderLayer::Player);
 	}
 
 	void PlayScene::Tick()

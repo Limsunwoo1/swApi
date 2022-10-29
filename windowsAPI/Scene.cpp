@@ -5,53 +5,67 @@ namespace sw
 {
 	Scene::Scene()
 	{
-
+		mObjects.resize((UINT)eColliderLayer::END);
 	}
 
 	Scene::~Scene()
 	{
-		
+		Release();
 	}
 
 	void Scene::Initialize()
 	{
-		for (int i = 0; i < mObjects.size(); i++)
+		for (int y = 0; y < mObjects.size(); y++)
 		{
-			if (!mObjects[i])
-				continue;
+			for (int x = 0; x < mObjects[y].size(); x++)
+			{
+				if (mObjects[y][x] == nullptr)
+					continue;
 
-			mObjects[i]->Initialize();
+				mObjects[y][x]->Initialize();
+			}
 		}
 	}
 
 	void Scene::Tick()
 	{
-		for (int i = 0; i < mObjects.size(); i++)
+		for (int y = 0; y < mObjects.size(); y++)
 		{
-			if (!mObjects[i])
-				continue;
+			for (int x = 0; x < mObjects[y].size(); x++)
+			{
+				if (mObjects[y][x] == nullptr)
+					continue;
 
-			mObjects[i]->Tick();
+				mObjects[y][x]->Tick();
+			}
 		}
 	}
 
 	void Scene::Render(HDC hdc)
 	{
-		for (int i = 0; i < mObjects.size(); i++)
+		for (int y = 0; y < mObjects.size(); y++)
 		{
-			if (!mObjects[i])
-				continue;
+			for (int x = 0; x < mObjects[y].size(); x++)
+			{
+				if (mObjects[y][x] == nullptr)
+					continue;
 
-			mObjects[i]->Render(hdc);
+				mObjects[y][x]->Render(hdc);
+			}
 		}
 	}
 
-	void Scene::AddGameObject(GameObject* object)
+	void Scene::AddGameObject(GameObject* object, eColliderLayer type)
 	{
 		if (object == nullptr)
 			return;
 
-		mObjects.push_back(object);
+		mObjects[(UINT)type].push_back(object);
+	}
+
+	void Scene::DeleteGameObject(GameObject* object, eColliderLayer type)
+	{
+		
 	}
 
 	void Scene::Enter()
@@ -64,13 +78,17 @@ namespace sw
 
 	void Scene::Release()
 	{
-		for (int i = 0; i < mObjects.size(); i++)
+		for (int y = 0; y < mObjects.size(); y++)
 		{
-			if (!mObjects[i])
-				continue;
+			for (int x = 0; x < mObjects[y].size(); x++)
+			{
+				if (mObjects[y][x] == nullptr)
+					continue;
 
-			delete mObjects[i];
-			mObjects[i] = nullptr;
+				delete mObjects[y][x];
+				mObjects[y][x] = nullptr;
+				
+			}
 		}
 	}
 }
