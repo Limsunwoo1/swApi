@@ -16,6 +16,10 @@ namespace sw
 		void SetPos(Vector2D pos) { mPos = pos; }
 		void SetOffset(Vector2D pos) { mOffset = pos; }
 
+		Vector2 GetPos() { return mPos; }
+		Vector2 GetOffset() { return mOffset; }
+		Vector2 GetScale() { return mScale; }
+
 	private:
 		Vector2D mOffset;
 		Vector2D mPos;

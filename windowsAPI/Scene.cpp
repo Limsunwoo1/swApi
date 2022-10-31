@@ -65,7 +65,20 @@ namespace sw
 
 	void Scene::DeleteGameObject(GameObject* object, eColliderLayer type)
 	{
-		
+		auto iter = mObjects[(UINT)type].begin();
+
+		for (; iter != mObjects[(UINT)type].end(); ++iter)
+		{
+			if (*iter == object)
+			{
+				delete *iter;
+				*iter = nullptr;
+
+				mObjects[(UINT)type].erase(iter);
+
+				return;
+			}
+		}
 	}
 
 	void Scene::Enter()

@@ -151,6 +151,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="def.h" />
@@ -183,6 +184,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="EndScene.cpp" />
     <ClCompile Include="Entity.cpp" />

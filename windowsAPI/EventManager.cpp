@@ -36,7 +36,10 @@ namespace sw
 
 				case EventType::DeleteObject:
 					{
-						// iter 를 이용하여 scene에 백터 크기도 줄여줘야한다
+					SceneManager::GetInstance()->GetPlayScene()->
+						DeleteGameObject(
+							(GameObject*)NewEvent.Parameter2,
+							*((eColliderLayer*)NewEvent.Parameter1));
 					}
 					break;
 			}

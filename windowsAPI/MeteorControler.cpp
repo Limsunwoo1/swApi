@@ -41,7 +41,7 @@ namespace sw
 	}
 	void MeteorControler::Render(HDC hdc)
 	{
-		int cnt = 1;
+		int cnt = 0;
 		for (GameObject* obj : Meteors)
 		{
 			if (cnt == 0)
@@ -64,7 +64,7 @@ namespace sw
 			HPEN pen = CreatePen(PS_SOLID, 2, RGB(b, g, r));
 			Pen CurPen(hdc, pen);
 
-			obj->Render(hdc);
+			//obj->Render(hdc);
 		}
 	}
 
