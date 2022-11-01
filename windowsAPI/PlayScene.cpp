@@ -4,6 +4,7 @@
 #include "MeteorControler.h"
 #include "Input.h"
 #include "SceneManager.h"
+#include "CollisionManager.h"
 
 namespace sw
 {
@@ -26,6 +27,8 @@ namespace sw
 
 		AddGameObject(bg,eColliderLayer::BackGround);
 		AddGameObject(new Player(),eColliderLayer::Player);
+
+		CollisionManager::GetInstance()->SetLayer(eColliderLayer::Player, eColliderLayer::Monster_ProjectTile);
 	}
 
 	void PlayScene::Tick()
@@ -43,7 +46,7 @@ namespace sw
 	void PlayScene::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
-		sw::MeteorControler::GetMeteorControler()->Render(hdc);
+		//sw::MeteorControler::GetMeteorControler()->Render(hdc);
 
 
 		wchar_t szFloat[50] = {};

@@ -9,8 +9,9 @@ namespace sw
 		, mOffset(Vector2::Zero)
 		, mPos(Vector2::Zero)
 		, mScale(Vector2::One)
+		, mCollisionCount(0)
 	{
-		mScale = Vector2(150.0f, 150.0f);
+
 	}
 
 	Collider::~Collider()
@@ -22,20 +23,48 @@ namespace sw
 	{
 		GameObject* owner = GetOwner();
 		mPos = owner->GetPos() + mOffset;
+		mScale = owner->GetScale();
 	}
 
 	void Collider::Render(HDC hdc)
 	{
-		const HPEN& green = Application::GetInstance().GetPen(ePenColor::Green);
-		Pen pen(hdc, green);
-
 		HBRUSH tr = Application::GetInstance().GetBrush(eBrushColor::Transparent);
 		Brush brush(hdc, tr);
 
-		/*HPEN red = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
-		Pen pen1(hdc, red);*/
+		HPEN greenPen = CreatePen(PS_SOLID, 2, RGB(0, 255, 0));
+		HPEN redPen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+		HPEN oldPen = NULL;
 
-		Rectangle(hdc, mPos.x - (mScale.x * 0.5), mPos.y - (mScale.y * 0.5)
-			,mPos.x + (mScale.x * 0.5), mPos.y + (mScale.y * 0.5));
+		if (mCollisionCount > 0)
+			oldPen = (HPEN)SelectObject(hdc, redPen);
+		else
+			oldPen = (HPEN)SelectObject(hdc, greenPen);
+
+		Vector2 pos = GetPos();
+		Vector2 scale = GetScale();
+
+		Rectangle(hdc, pos.x - (scale.x * 0.5), pos.y - (scale.y * 0.5)
+			, pos.x + (scale.x * 0.5), pos.y + (scale.y * 0.5));
+
+		SelectObject(hdc, oldPen);
+		DeleteObject(redPen);
+		DeleteObject(greenPen);
+	}
+
+	void Collider::OnCollisionEnter(Collider* other)
+	{
+		mCollisionCount++;
+		GetOwner()->OnCollisionEnter(other);
+	}
+
+	void Collider::OnCollisionStay(Collider* other)
+	{
+		GetOwner()->OnCollisionStay(other);
+	}
+
+	void Collider::OnCollisionExit(Collider* other)
+	{
+		mCollisionCount--;
+		GetOwner()->OnCollisionExit(other);
 	}
 }

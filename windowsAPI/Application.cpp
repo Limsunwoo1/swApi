@@ -4,6 +4,7 @@
 #include "EventManager.h"
 #include "Time.h"
 #include "Input.h"
+#include "CollisionManager.h"
 
 namespace sw
 {
@@ -72,7 +73,9 @@ namespace sw
 	{
 		Time::GetInstance()->Tick();
 		Input::GetInstance()->Tick();
+		CollisionManager::GetInstance()->Tick();
 		SceneManager::GetInstance()->Tick();
+		
 
 		Application::Render();
 
@@ -136,5 +139,6 @@ namespace sw
 		Time::GetInstance()->DistroyInstance();
 		Input::GetInstance()->DistroyInstance();
 		EventManager::GetInstance()->DistroyInstance();
+		CollisionManager::GetInstance()->DistroyInstance();
 	}
 }

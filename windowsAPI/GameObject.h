@@ -5,6 +5,7 @@
 
 namespace sw
 {
+	class Collider;
 	class GameObject
 	{
 	public:
@@ -37,6 +38,10 @@ namespace sw
 
 			return nullptr;
 		}
+
+		virtual void OnCollisionEnter(Collider* other);
+		virtual void OnCollisionStay(Collider* other);
+		virtual void OnCollisionExit(Collider* other);
 
 	private:
 		std::vector<Component*> mComponents;

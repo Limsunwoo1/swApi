@@ -1,5 +1,7 @@
 #include "Meteor.h"
 #include "Time.h"
+#include "Animator.h"
+#include "Collider.h"
 
 namespace sw
 {
@@ -18,6 +20,8 @@ namespace sw
 
 	void Meteor::Tick()
 	{
+		GameObject::Tick();
+
 		float delta = Time::GetInstance()->DeltaTime();
 		Vector2D pos = GetPos();
 
@@ -34,6 +38,18 @@ namespace sw
 		Vector2D pos = GetPos();
 		Vector2D scale = GetScale();
 		
-		Ellipse(hdc, pos.x, pos.y, pos.x +scale.x, pos.y + scale.y);
+		Ellipse(hdc, pos.x - (scale.x * 0.5f), pos.y - (scale.y * 0.5f),
+			pos.x + (scale.x * 0.5f), pos.y + (scale.y * 0.5f));
+
+		GameObject::Render(hdc);
+	}
+	void Meteor::OnCollisionEnter(Collider* other)
+	{
+	}
+	void Meteor::OnCollisionStay(Collider* other)
+	{
+	}
+	void Meteor::OnCollisionExit(Collider* other)
+	{
 	}
 }

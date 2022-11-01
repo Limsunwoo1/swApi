@@ -5,6 +5,8 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "Meteor.h"
+#include "Collider.h"
+#include "Animator.h"
 
 namespace sw
 {
@@ -26,6 +28,9 @@ namespace sw
 			Meteor* meteor = new Meteor();
 			float x = rand() % 1921;
 			meteor->SetPos({x, -1});
+
+			meteor->AddComponent(new Collider());
+			meteor->AddComponent(new Animator());
 
 			// Event»ý¼º
 			EventInfo info;

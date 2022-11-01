@@ -6,6 +6,16 @@
 
 namespace sw
 {
+    CollisionManager::CollisionManager()
+    {
+
+    }
+
+    CollisionManager::~CollisionManager()
+    {
+
+    }
+
     void CollisionManager::Tick()
     {
         Scene* PlayScene = SceneManager::GetInstance()->GetPlayScene();
@@ -16,6 +26,7 @@ namespace sw
             {
                 if (mMatrix[row] & (1 << col))
                 {
+                    // 충돌이 되었는지 안되었는지를 검사
                     LayerCollision(PlayScene, (eColliderLayer)row, (eColliderLayer)col);
                 }
             }
@@ -54,28 +65,74 @@ namespace sw
 
         for (auto leftObject : lefts)
         {
-            if (leftObject->GetComponent<Collider>() == nullptr)
+            Collider* leftCollider = leftObject->GetComponent<Collider>();
+            if (leftCollider == nullptr)
                 continue;
 
             for (auto rightObject : rights)
             {
-                if (rightObject->GetComponent<Collider>() == nullptr)
+                Collider* rightCollider = rightObject->GetComponent<Collider>();
+
+                if (rightCollider == nullptr)
                     continue;
 
                 if (leftObject == rightObject)
                     continue;
 
-                if (Intersect(leftObject->GetComponent<Collider>(),
-                    rightObject->GetComponent<Collider>()))
-                {
-                    // 충돌
-                    int a = 0;
-                }
-                else
-                {
-                    // 충돌 x
-                    int a = 0;
-                }
+                ColliderCollision(leftCollider, rightCollider);
+            }
+        }
+    }
+
+    void CollisionManager::ColliderCollision(Collider* left, Collider* right)
+    {
+        // 두 충돌체의 Layer 번호를 일단 확인해준다
+        ColliderID id;
+        id.left = left->GetID();
+        id.right = right->GetID();
+        
+        std::map<UINT64, bool>::iterator iter
+            = mCollisionInformation.find(id.ID);
+
+        // 충돌정보가 없다면 충돌정보를 생성해준다.
+        if (iter == mCollisionInformation.end())
+        {
+            mCollisionInformation.insert(std::make_pair(id.ID, false));
+            iter = mCollisionInformation.find(id.ID);
+        }
+
+        if (Intersect(left, right))
+        {
+            // 층돌 중
+
+            if (iter->second == false)
+            {
+                // 최초 한번 충돌
+
+                // 충돌함수를 호출해주면된다.
+                // OnCollisionEneter();
+                left->OnCollisionEnter(right);
+                right->OnCollisionEnter(left);
+
+                iter->second = true;
+            }
+            else
+            {
+                // 충돌 중일때
+                // OnCollisionStay();
+                left->OnCollisionStay(right);
+                right->OnCollisionStay(left);
+            }
+        }
+        else
+        {
+            // 충돌 x
+            if (iter->second)
+            {
+                left->OnCollisionExit(right);
+                right->OnCollisionExit(left);
+
+                iter->second = false;
             }
         }
     }
