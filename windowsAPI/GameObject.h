@@ -43,10 +43,14 @@ namespace sw
 		virtual void OnCollisionStay(Collider* other);
 		virtual void OnCollisionExit(Collider* other);
 
+		bool IsDeath() { return Death; } 
+
 	private:
 		std::vector<Component*> mComponents;
 		Vector2D mPos;
 		Vector2D mScale;
+
+		bool Death;
 	};
 }
 

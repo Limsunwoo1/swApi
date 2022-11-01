@@ -36,6 +36,9 @@ namespace sw
 				if (mObjects[y][x] == nullptr)
 					continue;
 
+				if (mObjects[y][x]->IsDeath())
+					continue;
+
 				mObjects[y][x]->Tick();
 			}
 		}
@@ -48,6 +51,9 @@ namespace sw
 			for (int x = 0; x < mObjects[y].size(); x++)
 			{
 				if (mObjects[y][x] == nullptr)
+					continue;
+
+				if (mObjects[y][x]->IsDeath())
 					continue;
 
 				mObjects[y][x]->Render(hdc);

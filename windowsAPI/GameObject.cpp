@@ -6,6 +6,7 @@ namespace sw
 	GameObject::GameObject()
 		: mPos {0.0f, 0.0f}
 		, mScale {1.0f, 1.0f}
+		, Death (false)
 	{
 	}
 
