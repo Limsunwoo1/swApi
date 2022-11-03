@@ -1,6 +1,7 @@
 #include "Collider.h"
 #include "GameObject.h"
 #include "Application.h"
+#include "Camera.h"
 
 namespace sw
 {
@@ -42,6 +43,8 @@ namespace sw
 
 		Vector2 pos = GetPos();
 		Vector2 scale = GetScale();
+
+		pos = Camera::GetInstance()->CalculatePos(pos);
 
 		Rectangle(hdc, pos.x - (scale.x * 0.5), pos.y - (scale.y * 0.5)
 			, pos.x + (scale.x * 0.5), pos.y + (scale.y * 0.5));

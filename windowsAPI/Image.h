@@ -9,6 +9,8 @@ namespace sw
 		Image();
 		virtual ~Image();
 
+		static Image* Create(const std::wstring& key, UINT width, UINT height);
+
 		virtual HRESULT Load(const std::wstring& path) override;
 
 		HDC GetDC() { return mHdc; }

@@ -49,6 +49,16 @@ namespace sw
 			return dynamic_cast<T*>(resource);
 		}
 
+		template <typename T>
+		void Insert(const std::wstring& key, T* resource)
+		{
+			if (resource == nullptr
+				|| key == L"")
+				return;
+
+			mResource.insert(std::make_pair(key, resource));
+		}
+
 		void Release(void)
 		{
 			ResourceIter iter = mResource.begin();

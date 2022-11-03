@@ -146,6 +146,15 @@
     <ClInclude Include="CollisionManager.h">
       <Filter>Engine\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Wood_Monster_1.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Engine\Commne</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -225,6 +234,12 @@
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Wood_Monster_1.cpp">
+      <Filter>Engine\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

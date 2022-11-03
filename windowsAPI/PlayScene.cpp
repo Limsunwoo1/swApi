@@ -1,6 +1,8 @@
 #include "PlayScene.h"
 #include "Player.h"
 #include "BackGround.h"
+#include "Wood_Monster_1.h"
+
 #include "MeteorControler.h"
 #include "Input.h"
 #include "SceneManager.h"
@@ -24,11 +26,20 @@ namespace sw
 		bg->SetImage(L"Back", L"BackGround.bmp");
 		bg->Initialize();
 
+		Wood_Monster_1* ms1 = new Wood_Monster_1();
+		Wood_Monster_1* ms2 = new Wood_Monster_1();
+
+		ms2->SetPos(Vector2(700,500));
+
 
 		AddGameObject(bg,eColliderLayer::BackGround);
 		AddGameObject(new Player(),eColliderLayer::Player);
 
+		AddGameObject(ms1, eColliderLayer::Monster);
+		AddGameObject(ms2, eColliderLayer::Monster);
+
 		CollisionManager::GetInstance()->SetLayer(eColliderLayer::Player, eColliderLayer::Monster_ProjectTile);
+		CollisionManager::GetInstance()->SetLayer(eColliderLayer::Player, eColliderLayer::Monster);
 	}
 
 	void PlayScene::Tick()

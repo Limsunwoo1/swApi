@@ -1,5 +1,7 @@
 #include "Meteor.h"
 #include "Time.h"
+#include "Camera.h"
+
 #include "Animator.h"
 #include "Collider.h"
 
@@ -38,6 +40,8 @@ namespace sw
 		Vector2D pos = GetPos();
 		Vector2D scale = GetScale();
 		
+		pos = Camera::GetInstance()->CalculatePos(pos);
+
 		Ellipse(hdc, pos.x - (scale.x * 0.5f), pos.y - (scale.y * 0.5f),
 			pos.x + (scale.x * 0.5f), pos.y + (scale.y * 0.5f));
 

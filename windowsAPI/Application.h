@@ -20,6 +20,8 @@ namespace sw
 		void Clear();
 
 		WindowData GetWindowData() { return mWindowData; }
+		HDC GetWindowDC() { return mWindowData.hdc; }
+
 		const HPEN &GetPen(ePenColor color)const { return mPens[(UINT)color]; }
 		const HBRUSH &GetBrush(eBrushColor color)const { return mBrushes[(UINT)color]; }
 

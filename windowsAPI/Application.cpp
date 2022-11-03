@@ -5,6 +5,7 @@
 #include "Time.h"
 #include "Input.h"
 #include "CollisionManager.h"
+#include "Camera.h"
 
 namespace sw
 {
@@ -28,6 +29,7 @@ namespace sw
 		Time::GetInstance()->Initialize();
 		Input::GetInstance()->Initialize();
 		SceneManager::GetInstance()->Initalize();
+		Camera::GetInstance()->Initialize();
 	}
 		
 	void Application::initialize(WindowData data)
@@ -73,6 +75,8 @@ namespace sw
 	{
 		Time::GetInstance()->Tick();
 		Input::GetInstance()->Tick();
+		Camera::GetInstance()->Tick();
+
 		CollisionManager::GetInstance()->Tick();
 		SceneManager::GetInstance()->Tick();
 		
@@ -94,6 +98,7 @@ namespace sw
 		// ===========================================
 		SceneManager::GetInstance()->Render(mWindowData.backbuffer);
 
+		Camera::GetInstance()->Render(mWindowData.backbuffer);
 		Time::GetInstance()->Render(mWindowData.backbuffer);
 		Input::GetInstance()->Render(mWindowData.backbuffer);
 

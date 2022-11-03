@@ -1,5 +1,6 @@
 #include "Image.h"
 #include "Application.h"
+#include "ResourceManager.h"
 
 namespace sw
 {
@@ -42,5 +43,43 @@ namespace sw
 		DeleteObject(prevBit);
 
 		return S_OK;
+	}
+
+	Image* Image::Create(const std::wstring& key, UINT width, UINT height)
+	{
+		// 우선 기존 이미지가 있는지 체크
+		Image* image = ResourceManager::GetInstance()->Find<Image>(key);
+		if (image != nullptr)
+		{
+			MessageBox(nullptr, L"중복 키 이미지 생성", L"이미지 생성 실패!", MB_OK);
+			return nullptr;
+		}
+
+		// 이미지를 생성해 줘야한다
+		image = new Image();
+		HDC mainhdc = Application::GetInstance().GetWindowDC();
+
+		image->mBitmap = CreateCompatibleBitmap(mainhdc, width, height);
+		image->mHdc = CreateCompatibleDC(mainhdc);
+
+		if (image->mBitmap == NULL
+			|| image->mHdc == NULL)
+			return nullptr;
+
+		// 새로 생성한 비트맵과 DC 를 서로 연결해 주어야함
+		HBITMAP defaultBitmap = (HBITMAP)SelectObject(image->mHdc, image->mBitmap);
+		DeleteObject(defaultBitmap);
+
+		// 비드맵 정보 확인
+		BITMAP bitmap = {};
+		GetObject(image->mBitmap, sizeof(BITMAP), &bitmap);
+
+		image->mWidth = bitmap.bmWidth;
+		image->mHeight = bitmap.bmHeight;
+
+		image->SetKey(key);
+		ResourceManager::GetInstance()->Insert<Image>(key, image);
+
+		return image;
 	}
 }

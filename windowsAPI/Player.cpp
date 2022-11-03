@@ -3,6 +3,7 @@
 #include "Time.h"
 #include "SceneManager.h"
 #include "ResourceManager.h"
+#include "Camera.h"
 
 #include "Scene.h"
 #include "Missile.h"
@@ -26,6 +27,8 @@ namespace sw
 
 		AddComponent(new Animator());
 		AddComponent(new Collider());
+
+		Camera::GetInstance()->SetTarget(this);
 	}
 
 	Player::~Player()
@@ -87,6 +90,8 @@ namespace sw
 		Vector2 rect;
 		rect.x = scale.x ;
 		rect.y = scale.y ;
+
+		finalPos = Camera::GetInstance()->CalculatePos(finalPos);
 
 		/*TransparentBlt(hdc,
 			(float)pos.x - (scale.x * 0.5f), (float)pos.y - (scale.y * 0.5f),

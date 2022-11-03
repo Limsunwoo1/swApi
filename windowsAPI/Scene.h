@@ -23,6 +23,7 @@ namespace sw
 		void DeleteGameObject(GameObject* object, eColliderLayer type);
 
 		std::vector<GameObject*>& GetGameObject(eColliderLayer type) { return mObjects[(UINT)type]; }
+		std::vector<std::vector<GameObject*>>& GetGameObjects() { return mObjects; }
 
 		virtual void Release();
 
