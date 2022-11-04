@@ -11,6 +11,7 @@ sw::Missile::Missile()
 
 sw::Missile::~Missile()
 {
+	GameObject::~GameObject();
 }
 
 void sw::Missile::Tick()

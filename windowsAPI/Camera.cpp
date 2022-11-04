@@ -16,7 +16,7 @@ namespace sw
 		, mEffect(eCameraEffect::None)
 		, mCutton(nullptr)
 		, mCuttonAlpha(0.0f)
-		, mEndTime(3.0f)
+		, mEndTime(5.0f)
 	{
 
 	}
@@ -35,7 +35,7 @@ namespace sw
 		mResolution = Vector2(1600,900);
 
 		mCutton = Image::Create(L"CameraCutton", 1600, 900);
-		mEffect = eCameraEffect::FadeIn;
+		mEffect = eCameraEffect::FadeOut;
 	}
 
 	void Camera::Tick()

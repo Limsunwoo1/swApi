@@ -33,7 +33,7 @@ namespace sw
 
 	Player::~Player()
 	{
-
+		GameObject::~GameObject();
 	}
 
 	void Player::Tick()

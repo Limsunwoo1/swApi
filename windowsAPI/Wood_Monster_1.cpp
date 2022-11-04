@@ -27,7 +27,7 @@ namespace sw
 	}
 	Wood_Monster_1::~Wood_Monster_1()
 	{
-
+		GameObject::~GameObject();
 	}
 
 	void Wood_Monster_1::Tick()

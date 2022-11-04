@@ -7,6 +7,7 @@
 #include <list>
 #include <map>
 #include <queue>
+#include <functional>
 
 #include "def.h"
 #include "Maths.h"

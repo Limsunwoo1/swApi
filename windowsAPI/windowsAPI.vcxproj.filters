@@ -155,6 +155,9 @@
     <ClInclude Include="Object.h">
       <Filter>Engine\Commne</Filter>
     </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Engine\Compnent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -240,6 +243,9 @@
     </ClCompile>
     <ClCompile Include="Wood_Monster_1.cpp">
       <Filter>Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Engine\Compnent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

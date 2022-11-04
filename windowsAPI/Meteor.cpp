@@ -17,7 +17,7 @@ namespace sw
 
 	Meteor::~Meteor()
 	{
-
+		GameObject::~GameObject();
 	}
 
 	void Meteor::Tick()

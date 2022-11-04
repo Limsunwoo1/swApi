@@ -145,5 +145,6 @@ namespace sw
 		Input::GetInstance()->DistroyInstance();
 		EventManager::GetInstance()->DistroyInstance();
 		CollisionManager::GetInstance()->DistroyInstance();
+		Camera::GetInstance()->DistroyInstance();
 	}
 }
