@@ -15,6 +15,7 @@ namespace sw
 			Vector2 offest;
 			float duration; // 해당 프레임 유지 시간
 
+
 			Sprite()
 				: LeftTop(Vector2::Zero)
 				, size(Vector2::Zero)
@@ -33,7 +34,7 @@ namespace sw
 		void Render(HDC hdc);
 		void Create(Image* image
 			, Vector2 leftTop, Vector2 size, Vector2 offest
-			, float columLength, UINT spriteLegnth, float duration
+			, UINT spriteLegnth, float duration
 			, bool bAffectedCamera = true);
 
 		void Reset();

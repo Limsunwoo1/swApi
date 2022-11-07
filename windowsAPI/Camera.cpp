@@ -32,10 +32,10 @@ namespace sw
 		mResolution = Vector2(data.width, data.height);
 		mLookPosition = (mResolution / 2.0f);
 
-		mResolution = Vector2(1600,900);
+		mResolution = Vector2(1280, 800);
 
 		mCutton = Image::Create(L"CameraCutton", 1600, 900);
-		mEffect = eCameraEffect::FadeOut;
+		mEffect = eCameraEffect::None;
 	}
 
 	void Camera::Tick()
@@ -75,6 +75,16 @@ namespace sw
 
 		if (mTarget != nullptr)
 			mLookPosition = mTarget->GetPos();
+
+		if (mLookPosition.x < 0)
+			mLookPosition.x = 0;
+		if (mLookPosition.x > 1600)
+			mLookPosition.x = 1600;
+
+		if (mLookPosition.y < 0)
+			mLookPosition.y = 0;
+		if (mLookPosition.y > 900)
+			mLookPosition.y = 900;
 
 		mDistance = mLookPosition - (mResolution / 2.0f);
 	}

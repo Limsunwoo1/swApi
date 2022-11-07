@@ -46,12 +46,16 @@ namespace sw
 		bool IsDeath() { return mDeath; }
 		void Deth() { mDeath = false; }
 
+		eObjectState GetState() {return mCurstate;}
+		void SetState(eObjectState state) { mCurstate = state;}
+
 	private:
 		std::vector<Component*> mComponents;
 		Vector2D mPos;
 		Vector2D mScale;
 
 		bool mDeath;
+		eObjectState mCurstate;
 	};
 }
 

@@ -9,6 +9,7 @@
 #include "Missile.h"
 #include "Image.h"
 #include "Animator.h"
+#include "Animation.h"
 #include "Collider.h"
 
 
@@ -18,16 +19,61 @@ namespace sw
 		: mSpeed(1.0f)
 	{
 		SetPos({ 100.0f, 100.0f });
-		SetScale({ 100.0f, 100.0f });
+		SetScale({ 200.f, 200.0f });
 
 		if (!mImage)
 		{
-			mImage = ResourceManager::GetInstance()->Load<Image>(L"PLAYER", L"..\\Resource\\Image\\payer1.bmp");
+			mImage = ResourceManager::GetInstance()->Load<Image>(L"PLAYER", L"..\\Resource\\Image\\test.bmp");
 		}
 
-		AddComponent(new Animator());
+		Animator* animator = new Animator();
+
+		AddComponent(animator);
 		AddComponent(new Collider());
 
+		Animation::Sprite sprite;
+		sprite.LeftTop = Vector2(0.0f, 0.0f);
+		sprite.size = Vector2((mImage->GetWidth() / 8), (mImage->GetHeight() / 8));
+		sprite.offest = Vector2(0.0f, 0.0f);
+		sprite.duration = 0.1f;
+
+		animator->CreateAnimation(L"IDEL", mImage,
+			sprite.LeftTop, sprite.size, sprite.offest,
+			7, sprite.duration, true);
+
+		Animation::Sprite sprite1;
+		sprite1.LeftTop = Vector2(0.0f, 128.f);
+		sprite1.size = Vector2((mImage->GetWidth() / 8), (mImage->GetHeight() / 8));
+		sprite1.offest = Vector2(0.0f, 0.0f);
+		sprite1.duration = 0.1f;
+
+		animator->CreateAnimation(L"RIGHT", mImage,
+			sprite1.LeftTop, sprite1.size, sprite1.offest,
+			7, sprite1.duration, true);
+
+		Animation::Sprite sprite2;
+		sprite2.LeftTop = Vector2(0.0f, 256.f);
+		sprite2.size = Vector2((mImage->GetWidth() / 8), (mImage->GetHeight() / 8));
+		sprite2.offest = Vector2(0.0f, 0.0f);
+		sprite2.duration = 0.1f;
+
+		animator->CreateAnimation(L"ATTACK_1", mImage,
+			sprite2.LeftTop, sprite2.size, sprite2.offest,
+			6, sprite2.duration, true);
+
+		Animation::Sprite sprite3;
+		sprite3.LeftTop = Vector2(0.0f, 384.f);
+		sprite3.size = Vector2((mImage->GetWidth() / 8), (mImage->GetHeight() / 8));
+		sprite3.offest = Vector2(0.0f, 0.0f);
+		sprite3.duration = 0.1f;
+
+		animator->CreateAnimation(L"ATTACK_2", mImage,
+			sprite3.LeftTop, sprite3.size, sprite3.offest,
+			7, sprite3.duration, true);
+
+		animator->Play(L"IDEL", eObjectState::IDEL,true);
+
+		SetState(eObjectState::IDEL);
 		Camera::GetInstance()->SetTarget(this);
 	}
 
@@ -40,38 +86,64 @@ namespace sw
 	{
 		GameObject::Tick();
 
-		int speed = 10;
+		int speed = 3;
 		Vector2 pos = GetPos();
-		if (KEY_PRESSE(eKeyCode::W))
+
+		eObjectState state = GetState();
+		if (state != eObjectState::ATTACK_1 && state != eObjectState::ATTACK_2)
 		{
-			pos.y -= 120.0f * Time::GetInstance()->DeltaTime() * speed;
-		}
-		if (KEY_PRESSE(eKeyCode::S))
-		{
-			pos.y += 120.0f * Time::GetInstance()->DeltaTime() * speed;
-		}
-		if (KEY_PRESSE(eKeyCode::A))
-		{
-			pos.x -= 120.0f * Time::GetInstance()->DeltaTime() * speed;
-		}
-		if (KEY_PRESSE(eKeyCode::D))
-		{
-			pos.x += 120.0f * Time::GetInstance()->DeltaTime() * speed;
+			if (KEY_PRESSE(eKeyCode::W))
+			{
+				pos.y -= 120.0f * Time::GetInstance()->DeltaTime() * speed;
+			}
+			if (KEY_PRESSE(eKeyCode::S))
+			{
+				pos.y += 120.0f * Time::GetInstance()->DeltaTime() * speed;
+			}
+			if (KEY_PRESSE(eKeyCode::A) &&
+				(GetState() != eObjectState::RIGHT))
+			{
+				pos.x -= 120.0f * Time::GetInstance()->DeltaTime() * speed;
+			}
+			if (KEY_PRESSE(eKeyCode::D))
+			{
+				pos.x += 120.0f * Time::GetInstance()->DeltaTime() * speed;
+			}
+
+			if (KEY_DOWN(eKeyCode::D))
+			{
+				SetState(eObjectState::RIGHT);
+			}
+
+			if (KEY_UP(eKeyCode::D))
+			{
+				SetState(eObjectState::IDEL);
+			}
 		}
 
 		if (KEY_DOWN(eKeyCode::SPACE))
 		{
-			Missile* missile = new Missile();
+			switch (state)
+			{
+			case eObjectState::ATTACK_1:
+			{
+				SetState(eObjectState::ATTACK_2);
+			}
+			break;
 
-			Scene* playScene = SceneManager::GetInstance()->GetPlayScene();
-			playScene->AddGameObject(missile, eColliderLayer::Player_ProjectTile);
+			case eObjectState::ATTACK_2:
+			{
+				//SetState(eObjectState::ATTACK_3);
+			}
+			break;
 
-			Vector2D playerpos = GetPos();
-			Vector2D playerscale = GetScale() / 2.0f;
+			default:
+			{
+				SetState(eObjectState::ATTACK_1);
+			}
+			break;
 
-			Vector2D missileScale = missile->GetScale();
-
-			missile->SetPos((playerpos + playerscale) - (missileScale / 2.0f));
+			}
 		}
 
 		SetPos(pos);
@@ -82,16 +154,7 @@ namespace sw
 		Vector2 pos = GetPos();
 		Vector2 scale = GetScale();
 
-
-		Vector2 finalPos;
-		finalPos.x = pos.x - (scale.x * 0.5f);
-		finalPos.y = pos.y - (scale.y * 0.5f);
-
-		Vector2 rect;
-		rect.x = scale.x ;
-		rect.y = scale.y ;
-
-		finalPos = Camera::GetInstance()->CalculatePos(finalPos);
+		pos = Camera::GetInstance()->CalculatePos(pos);
 
 		/*TransparentBlt(hdc,
 			(float)pos.x - (scale.x * 0.5f), (float)pos.y - (scale.y * 0.5f),
@@ -103,12 +166,12 @@ namespace sw
 		// 총알 충돌박스 만들기
 		// 플레이어 scale 다시생각해보기 
 		
-		TransparentBlt(hdc, 
+		/*TransparentBlt(hdc, 
 			finalPos.x, finalPos.y,
 			rect.x, rect.y,
 			mImage->GetDC(), 
 			0, 0, mImage->GetWidth(), mImage->GetHeight(), 
-			RGB(255,0,255));
+			RGB(255,0,255));*/
 
 		GameObject::Render(hdc);
 	}

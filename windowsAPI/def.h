@@ -86,6 +86,36 @@ enum class eCameraEffect
 	None,
 };
 
+enum class eObjectState
+{
+	IDEL,
+
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+
+	JUMP,
+	DOUBLEJUMP,
+
+	SLIDING,
+	DOUBLESLIDING,
+
+	ATTACK_1,
+	ATTACK_2,
+	ATTACK_3,
+
+	JUMPATTACK_1,
+
+	SKILL_1,
+	SKILL_2,
+
+	BESHOT,
+
+
+	END,
+};
+
 union ColliderID
 {
 	struct
@@ -96,3 +126,4 @@ union ColliderID
 
 	UINT64 ID;
 };
+
