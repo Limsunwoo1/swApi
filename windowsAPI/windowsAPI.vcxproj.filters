@@ -158,6 +158,9 @@
     <ClInclude Include="Animation.h">
       <Filter>Engine\Compnent</Filter>
     </ClInclude>
+    <ClInclude Include="UtilMath.h">
+      <Filter>Engine\Commne</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">

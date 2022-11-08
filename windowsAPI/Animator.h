@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include "Animation.h"
 
 namespace sw
 {
@@ -8,43 +9,25 @@ namespace sw
 	class Animator : public Component
 	{
 	public:
-		struct Event
-		{
-			void operator =(std::function<void()> func)
-			{
-				mEvent = std::move(func);
-			}
-
-			void operator()()
-			{
-				if (mEvent)
-					mEvent();
-			}
-
-			std::function<void()> mEvent;
-		};
-
-
-	public:
 		Animator();
 		~Animator();
 
 		virtual void Tick() override;
 		virtual void Render(HDC hdc) override;
 
-		void Play(const std::wstring name, eObjectState state, bool bLoop = false);
+		void Play(const std::wstring name, bool bLoop = false);
 
 		void CreateAnimation(const std::wstring name, Image* image
 			, Vector2 leftTop, Vector2 Size, Vector2 offset
 			, UINT spriteLegth, float duration, bool bAffectedCamera = true);
 
+		Animation::Event& StartEvent() {return mPlayAnimation->StartEvent();}
+		Animation::Event& CompleteEvent() { return mPlayAnimation->CompleteEvent(); }
+		Animation::Event& EndEvent() { return mPlayAnimation->EndEvent(); }
+
 	private:
 		Animation* FindAnimation(const std::wstring name);
 		void AnimationSwap();
-	public:
-		Event mStartEvent;
-		Event mCompleteEvent;
-		Event mEndEvent;
 
 	private:
 		std::map<const std::wstring, Animation*> mAnimations;

@@ -100,4 +100,9 @@ namespace sw
 		mTime = 0.0f;
 		mbComplete = false;
 	}
+
+
+	// 한가지 이벤트만 추가하고 싶을시
+	// SetEvent(nullptr, nullptr, fun3) == EndEvent추가
+	
 }

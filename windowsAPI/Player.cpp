@@ -4,6 +4,7 @@
 #include "SceneManager.h"
 #include "ResourceManager.h"
 #include "Camera.h"
+#include "EventManager.h"
 
 #include "Scene.h"
 #include "Missile.h"
@@ -41,37 +42,16 @@ namespace sw
 			sprite.LeftTop, sprite.size, sprite.offest,
 			7, sprite.duration, true);
 
-		Animation::Sprite sprite1;
-		sprite1.LeftTop = Vector2(0.0f, 128.f);
-		sprite1.size = Vector2((mImage->GetWidth() / 8), (mImage->GetHeight() / 8));
-		sprite1.offest = Vector2(0.0f, 0.0f);
-		sprite1.duration = 0.1f;
+		animator->Play(L"IDEL",true);
 
-		animator->CreateAnimation(L"RIGHT", mImage,
-			sprite1.LeftTop, sprite1.size, sprite1.offest,
-			7, sprite1.duration, true);
 
-		Animation::Sprite sprite2;
-		sprite2.LeftTop = Vector2(0.0f, 256.f);
-		sprite2.size = Vector2((mImage->GetWidth() / 8), (mImage->GetHeight() / 8));
-		sprite2.offest = Vector2(0.0f, 0.0f);
-		sprite2.duration = 0.1f;
+		// Animator 에 현재 진행중인 애니메이션 셋팅후 바인딩
+		//animator->StartEvent() = std::bind(&Player::StartEvent, this);
+		//animator->EndEvent() = std::bind(&Player::EndEvent, this);
+		animator->CompleteEvent() = std::bind(&Player::CompleteEvent, this);
 
-		animator->CreateAnimation(L"ATTACK_1", mImage,
-			sprite2.LeftTop, sprite2.size, sprite2.offest,
-			6, sprite2.duration, true);
 
-		Animation::Sprite sprite3;
-		sprite3.LeftTop = Vector2(0.0f, 384.f);
-		sprite3.size = Vector2((mImage->GetWidth() / 8), (mImage->GetHeight() / 8));
-		sprite3.offest = Vector2(0.0f, 0.0f);
-		sprite3.duration = 0.1f;
 
-		animator->CreateAnimation(L"ATTACK_2", mImage,
-			sprite3.LeftTop, sprite3.size, sprite3.offest,
-			7, sprite3.duration, true);
-
-		animator->Play(L"IDEL", eObjectState::IDEL,true);
 
 		SetState(eObjectState::IDEL);
 		Camera::GetInstance()->SetTarget(this);
@@ -80,6 +60,19 @@ namespace sw
 	Player::~Player()
 	{
 		GameObject::~GameObject();
+	}
+
+	void Player::CompleteEvent()
+	{
+		Missile* missile = new Missile();
+		missile->SetPos(this->GetPos());
+
+		EventInfo info;
+		info.Type = EventType::AddObejct;
+		info.Parameter1 = new eColliderLayer(eColliderLayer::Monster_ProjectTile);
+		info.Parameter2 = missile;
+
+		EventManager::GetInstance()->EventPush(info);
 	}
 
 	void Player::Tick()
@@ -112,12 +105,12 @@ namespace sw
 
 			if (KEY_DOWN(eKeyCode::D))
 			{
-				SetState(eObjectState::RIGHT);
+				//SetState(eObjectState::RIGHT);
 			}
 
 			if (KEY_UP(eKeyCode::D))
 			{
-				SetState(eObjectState::IDEL);
+				//SetState(eObjectState::IDEL);
 			}
 		}
 

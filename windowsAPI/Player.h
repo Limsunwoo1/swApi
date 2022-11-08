@@ -18,6 +18,9 @@ namespace sw
 		virtual void OnCollisionExit(Collider* other);
 
 	private:
+		void CompleteEvent();
+
+	private:
 		float mSpeed;
 		Image* mImage;
 	};

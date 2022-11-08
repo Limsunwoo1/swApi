@@ -30,14 +30,17 @@ namespace sw
 			// 리셋후 재시작
 			if (mbLoop && mPlayAnimation->isComplete())
 			{
-				mCompleteEvent();
+				Animation::Event& Event = 
+					mPlayAnimation->CompleteEvent();
+
+				Event();
 				mPlayAnimation->Reset();
 			}
 
 			if (!mbLoop && mPlayAnimation->isComplete())
 			{
-				mCompleteEvent();
-				Play(L"IDEL", eObjectState::IDEL, true);
+				mPlayAnimation->CompleteEvent();
+				Play(L"IDEL", true);
 				mCurState = eObjectState::IDEL;
 			}
 		}
@@ -47,6 +50,7 @@ namespace sw
 		if (mPlayAnimation != nullptr)
 			mPlayAnimation->Render(hdc);
 	}
+
 	Animation* Animator::FindAnimation(const std::wstring name)
 	{
 		std::map<const std::wstring, Animation*>::iterator iter
@@ -57,6 +61,7 @@ namespace sw
 
 		return iter->second;
 	}
+
 	void Animator::CreateAnimation(const std::wstring name, Image* image
 		, Vector2 leftTop, Vector2 Size, Vector2 offset, UINT spriteLegth
 		, float duration, bool bAffectedCamera)
@@ -79,11 +84,15 @@ namespace sw
 
 		mAnimations.insert(std::make_pair(name, animation));
 	}
-	void Animator::Play(const std::wstring name, eObjectState state, bool bLoop)
+	void Animator::Play(const std::wstring name, bool bLoop)
 	{ 
-		this->GetOwner()->SetState(state);
+		Animation::Event StartEvent= 
+			mPlayAnimation->StartEvent();
 
-		mStartEvent();
+		Animation::Event EndEvent =
+			mPlayAnimation->EndEvent();
+
+		StartEvent();
 
 		Animation* prevAnimation = mPlayAnimation;
 
@@ -93,7 +102,7 @@ namespace sw
 
 		// 이전 애니매이션에 End 이벤트 호출
 		if (prevAnimation != mPlayAnimation)
-			mEndEvent();
+			EndEvent();
 	}
 	
 	void Animator::AnimationSwap()
@@ -161,6 +170,6 @@ namespace sw
 		break;
 		}
 
-		Play(str, obj, mb);
+		Play(str, mb);
 	}
 }
