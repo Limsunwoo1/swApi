@@ -27,9 +27,9 @@ namespace sw
 			mImage = ResourceManager::GetInstance()->Load<Image>(L"PLAYER", L"..\\Resource\\Image\\test.bmp");
 		}
 
-		Animator* animator = new Animator();
+		mAnimator = new Animator();
 
-		AddComponent(animator);
+		AddComponent(mAnimator);
 		AddComponent(new Collider());
 
 		Animation::Sprite sprite;
@@ -38,17 +38,21 @@ namespace sw
 		sprite.offest = Vector2(0.0f, 0.0f);
 		sprite.duration = 0.1f;
 
-		animator->CreateAnimation(L"IDEL", mImage,
+		mAnimator->CreateAnimation(L"IDEL", mImage,
 			sprite.LeftTop, sprite.size, sprite.offest,
 			7, sprite.duration, true);
 
-		animator->Play(L"IDEL",true);
+		mAnimator->Play(L"IDEL",true);
 
 
 		// Animator 에 현재 진행중인 애니메이션 셋팅후 바인딩
 		//animator->StartEvent() = std::bind(&Player::StartEvent, this);
 		//animator->EndEvent() = std::bind(&Player::EndEvent, this);
-		animator->CompleteEvent() = std::bind(&Player::CompleteEvent, this);
+		if (mAnimator->bPlayAnimation())
+		{
+			mAnimator->CompleteEvent() = 
+				std::bind(&Player::CompleteEvent, this);
+		}
 
 
 

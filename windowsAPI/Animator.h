@@ -21,19 +21,24 @@ namespace sw
 			, Vector2 leftTop, Vector2 Size, Vector2 offset
 			, UINT spriteLegth, float duration, bool bAffectedCamera = true);
 
+		void CreatAnimations(const std::wstring& name, const std::wstring& path
+			, Vector2 offset = Vector2::Zero
+			, float duration = 0.1);
+
 		Animation::Event& StartEvent() {return mPlayAnimation->StartEvent();}
 		Animation::Event& CompleteEvent() { return mPlayAnimation->CompleteEvent(); }
 		Animation::Event& EndEvent() { return mPlayAnimation->EndEvent(); }
 
+		bool bPlayAnimation();
+
 	private:
 		Animation* FindAnimation(const std::wstring name);
-		void AnimationSwap();
 
 	private:
 		std::map<const std::wstring, Animation*> mAnimations;
 		Animation* mPlayAnimation;
+		Image* mSpriteSheet;
 
-		eObjectState mCurState;
 		bool mbLoop;
 	};
 }

@@ -42,4 +42,15 @@ namespace sw
         else
             return Vector2(0.0f, 0.0f);
     }
+
+    // È¸Àü
+    inline Vector2 Rotate(const Vector2 value, float degree)
+    {
+        Vector2 ret = Vector2::Zero;
+        float radian = ToRadian(degree);
+        ret.x = value.x * cosf(radian) - value.y * sinf(radian);
+        ret.y = value.x * sinf(radian) + value.y * cosf(radian);
+
+        return ret;
+    }
 }

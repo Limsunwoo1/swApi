@@ -1,4 +1,5 @@
 #include "Input.h"
+#include "Application.h"
 
 namespace sw
 {
@@ -59,31 +60,49 @@ namespace sw
 
 	void Input::Tick()
 	{
-		for (UINT i = 0; i < (UINT)eKeyCode::End; i++)
+		// 마우스가 현재 window 창을 선택하였는지 체크
+		if (GetFocus()) 
 		{
-			// 해당키가 현재 눌려져 있는경우
-			if (GetAsyncKeyState(ASCII[i]) & 0x8000)
+			// 키보드
+			for (UINT i = 0; i < (UINT)eKeyCode::End; i++)
 			{
-				// 이전 프레임에 눌려져 있었다
-				if (mKeys[i].bPressed)
-					mKeys[i].state = eKeyState::PRESSED;
-				else
-					mKeys[i].state = eKeyState::DOWN;
+				// 해당키가 현재 눌려져 있는경우
+				if (GetAsyncKeyState(ASCII[i]) & 0x8000)
+				{
+					// 이전 프레임에 눌려져 있었다
+					if (mKeys[i].bPressed)
+						mKeys[i].state = eKeyState::PRESSED;
+					else
+						mKeys[i].state = eKeyState::DOWN;
 
-				mKeys[i].bPressed = true;
-			}
-			// 해당키가 눌려져 있지 않은 경우
-			else
-			{
-				// 이전 프레임에 눌려져 있었다
-				if (mKeys[i].bPressed)
-					mKeys[i].state = eKeyState::UP;
+					mKeys[i].bPressed = true;
+				}
+				// 해당키가 눌려져 있지 않은 경우
 				else
-					mKeys[i].state = eKeyState::NONE;
+				{
+					// 이전 프레임에 눌려져 있었다
+					if (mKeys[i].bPressed)
+						mKeys[i].state = eKeyState::UP;
+					else
+						mKeys[i].state = eKeyState::NONE;
 
-				mKeys[i].bPressed = false;
+					mKeys[i].bPressed = false;
+				}
 			}
 		}
+
+		POINT mousePos = {};
+
+		// 현재 마우스 좌표를 받아옴
+		GetCursorPos(&mousePos);
+
+		// 마우스 포지션을 클라이언트 창에 맞춤
+		HWND hwnd = Application::GetInstance().GetWindowData().hWnd;
+		ScreenToClient(hwnd, &mousePos);
+
+
+		mMousePos.x = mousePos.x;
+		mMousePos.y = mousePos.y;
 	}
 
 	void Input::Render(HDC hdc)

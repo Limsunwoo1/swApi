@@ -1,5 +1,7 @@
 #include "Animator.h"
 #include "Animation.h"
+#include "Image.h"
+#include "ResourceManager.h"
 #include "GameObject.h"
 
 
@@ -20,8 +22,6 @@ namespace sw
 
 	void Animator::Tick()
 	{
-		Animator::AnimationSwap();
-
 		if (mPlayAnimation != nullptr)
 		{
 			mPlayAnimation->Tick();
@@ -41,7 +41,6 @@ namespace sw
 			{
 				mPlayAnimation->CompleteEvent();
 				Play(L"IDEL", true);
-				mCurState = eObjectState::IDEL;
 			}
 		}
 	}
@@ -84,6 +83,48 @@ namespace sw
 
 		mAnimations.insert(std::make_pair(name, animation));
 	}
+
+	//Sprte 이미지를 Animation 으로 만들어주는 함수
+	void Animator::CreatAnimations(const std::wstring& name, const std::wstring& path
+		, Vector2 offset, float duration)
+	{
+		UINT width = 0;
+		UINT height = 0;
+		UINT fileCount = 0;
+
+		std::filesystem::path fs(path);
+		std::vector<Image*> images;
+		for (auto& file : std::filesystem::recursive_directory_iterator(path))
+		{
+			std::wstring filename = file.path().filename();
+			std::wstring fullName = path + L"\\" + filename;
+			Image* image = ResourceManager::GetInstance()->Load<Image>(filename, fullName);
+			images.push_back(image);
+
+			// 제일큰 리소스의 크기 셋팅
+			if (width < image->GetWidth())
+				width = image->GetWidth();
+
+			if (height < image->GetHeight())
+				height = image->GetHeight();
+
+			fileCount++;
+		}
+
+		mSpriteSheet = Image::Create(name, width * fileCount, height);
+		int index = 0;
+		for (Image* image : images)
+		{
+			BitBlt(mSpriteSheet->GetDC(), width * index, 0, image->GetWidth(), image->GetHeight(), 
+				image->GetDC(), 0, 0, SRCCOPY);
+
+			index++;
+		}
+
+		Animator::CreateAnimation(name, mSpriteSheet
+			, Vector2(0.0f, 0.0f), Vector2(width, height)
+			, offset, fileCount, duration);
+	}
 	void Animator::Play(const std::wstring name, bool bLoop)
 	{ 
 		Animation::Event StartEvent= 
@@ -93,7 +134,6 @@ namespace sw
 			mPlayAnimation->EndEvent();
 
 		StartEvent();
-
 		Animation* prevAnimation = mPlayAnimation;
 
 		mPlayAnimation = FindAnimation(name);
@@ -104,72 +144,12 @@ namespace sw
 		if (prevAnimation != mPlayAnimation)
 			EndEvent();
 	}
-	
-	void Animator::AnimationSwap()
+
+	bool Animator::bPlayAnimation()
 	{
-		if (mCurState == this->GetOwner()->GetState())
-			return;
+		if (mPlayAnimation)
+			return true;
 		
-		mCurState = this->GetOwner()->GetState();
-
-		std::wstring str = L"";
-		eObjectState obj = eObjectState::END;
-		bool mb = true;
-
-		switch (mCurState)
-		{
-		case eObjectState::IDEL:
-		{
-			str = L"IDEL";
-			obj = eObjectState::IDEL;
-		}
-		break;
-
-		case eObjectState::UP:
-		{
-			str = L"UP";
-			obj = eObjectState::UP;
-		}
-		break;
-
-		case eObjectState::DOWN:
-		{
-			str = L"DOWN";
-			obj = eObjectState::DOWN;
-		}
-		break;
-
-		case eObjectState::RIGHT:
-		{
-			str = L"RIGHT";
-			obj = eObjectState::RIGHT;
-		}
-		break;
-
-		case eObjectState::LEFT:
-		{
-			str = L"LEFT";
-			obj = eObjectState::LEFT;
-		}
-		break;
-
-		case eObjectState::ATTACK_1:
-		{
-			str = L"ATTACK_1";
-			obj = eObjectState::ATTACK_1;
-			mb = false;
-		}
-		break;
-
-		case eObjectState::ATTACK_2:
-		{
-			str = L"ATTACK_2";
-			obj = eObjectState::ATTACK_2;
-			mb = false;
-		}
-		break;
-		}
-
-		Play(str, mb);
+		return false;
 	}
 }

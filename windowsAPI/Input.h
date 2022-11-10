@@ -57,6 +57,7 @@ namespace sw
 
 	private:
 		 std::vector<Key> mKeys;
+		 Vector2 mMousePos;
 	};
 }
 

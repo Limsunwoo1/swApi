@@ -3,6 +3,7 @@
 
 namespace sw
 {
+	class Animator;
 	class Image;
 	class Player : public GameObject
 	{
@@ -23,6 +24,7 @@ namespace sw
 	private:
 		float mSpeed;
 		Image* mImage;
+		Animator* mAnimator;
 	};
 }
 
