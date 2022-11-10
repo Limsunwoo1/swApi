@@ -42,17 +42,19 @@ namespace sw
 			sprite.LeftTop, sprite.size, sprite.offest,
 			7, sprite.duration, true);
 
-		mAnimator->Play(L"IDEL",true);
+		mAnimator->CreatAnimations(L"MonsterAttack", L"..\\Resource\\Animation\\AttackWood", Vector2::Zero, 0.4f);
+
+		mAnimator->Play(L"MonsterAttack",true);
 
 
 		// Animator 에 현재 진행중인 애니메이션 셋팅후 바인딩
 		//animator->StartEvent() = std::bind(&Player::StartEvent, this);
 		//animator->EndEvent() = std::bind(&Player::EndEvent, this);
-		if (mAnimator->bPlayAnimation())
+		/*if (mAnimator->bPlayAnimation())
 		{
 			mAnimator->CompleteEvent() = 
 				std::bind(&Player::CompleteEvent, this);
-		}
+		}*/
 
 
 

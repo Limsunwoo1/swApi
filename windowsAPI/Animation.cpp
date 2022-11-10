@@ -46,11 +46,11 @@ namespace sw
 		func.BlendOp = AC_SRC_OVER;
 		func.BlendFlags = 0;
 		func.AlphaFormat = AC_SRC_ALPHA;
-		func.SourceConstantAlpha = 127; // 0 - 225
+		func.SourceConstantAlpha = 255; // 0 - 225
 
 		pos += mSpriteSheet[mSpriteIndex].offest;
 
-		TransparentBlt(hdc
+		/*TransparentBlt(hdc
 			, (int)pos.x - scale.x / 2.0f
 			, (int)pos.y - scale.y / 2.0f
 			, (int)scale.x
@@ -60,9 +60,9 @@ namespace sw
 			, (int)mSpriteSheet[mSpriteIndex].LeftTop.y
 			, (int)mSpriteSheet[mSpriteIndex].size.x
 			, (int)mSpriteSheet[mSpriteIndex].size.y
-			, RGB(255, 0, 255));
+			, RGB(255, 0, 255));*/
 
-		/*AlphaBlend(hdc
+		AlphaBlend(hdc
 			, (int)pos.x - mSpriteSheet[mSpriteIndex].size.x / 2.0f
 			, (int)pos.y - mSpriteSheet[mSpriteIndex].size.y / 2.0f
 			, (int)mSpriteSheet[mSpriteIndex].size.x
@@ -72,7 +72,7 @@ namespace sw
 			, (int)mSpriteSheet[mSpriteIndex].LeftTop.y
 			, (int)mSpriteSheet[mSpriteIndex].size.x
 			, (int)mSpriteSheet[mSpriteIndex].size.y
-			, func);*/
+			, func);
 	}
 
 	void Animation::Create(Image* image, Vector2 leftTop, Vector2 size, Vector2 offest

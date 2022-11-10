@@ -127,13 +127,14 @@ namespace sw
 	}
 	void Animator::Play(const std::wstring name, bool bLoop)
 	{ 
-		Animation::Event StartEvent= 
-			mPlayAnimation->StartEvent();
+		if (mPlayAnimation != nullptr)
+		{
+			Animation::Event StartEvent =
+				mPlayAnimation->StartEvent();
 
-		Animation::Event EndEvent =
-			mPlayAnimation->EndEvent();
+			StartEvent();
+		}
 
-		StartEvent();
 		Animation* prevAnimation = mPlayAnimation;
 
 		mPlayAnimation = FindAnimation(name);
@@ -141,8 +142,13 @@ namespace sw
 		mbLoop = bLoop;
 
 		// 이전 애니매이션에 End 이벤트 호출
-		if (prevAnimation != mPlayAnimation)
+		if (prevAnimation != mPlayAnimation && prevAnimation != nullptr)
+		{
+			Animation::Event EndEvent =
+				prevAnimation->EndEvent();
+
 			EndEvent();
+		}
 	}
 
 	bool Animator::bPlayAnimation()
