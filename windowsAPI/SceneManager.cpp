@@ -3,6 +3,7 @@
 #include "TitleScene.h"
 #include "PlayScene.h"
 #include "EndScene.h"
+#include "ToolScene.h"
 
 namespace sw
 {
@@ -31,8 +32,11 @@ namespace sw
 		mScenes[(UINT)eSceneType::End] = new EndScene();
 		mScenes[(UINT)eSceneType::End]->Initialize();
 
+		mScenes[(UINT)eSceneType::Tool] = new ToolScene();
+		mScenes[(UINT)eSceneType::Tool]->Initialize();
+
 		// 자식 > 부모 (업캐스팅)
-		mPlayScene = mScenes[(UINT)eSceneType::Logo];
+		mPlayScene = mScenes[(UINT)eSceneType::Tool];
 
 		// 부모 > 자식 (다운캐스팅)
 	}

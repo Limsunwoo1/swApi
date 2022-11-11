@@ -34,6 +34,7 @@ enum class eSceneType
 	Title,
 	Play,
 	End,
+	Tool,
 	Max,
 };
 
@@ -127,3 +128,7 @@ union ColliderID
 	UINT64 ID;
 };
 
+#define TILE_SIZE 32
+
+#define TILE_LINE_X 8
+#define TILE_LINE_Y 3

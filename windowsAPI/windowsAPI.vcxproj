@@ -180,8 +180,11 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="TilePalette.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="ToolScene.h" />
     <ClInclude Include="UtilMath.h" />
     <ClInclude Include="windowsAPI.h" />
     <ClInclude Include="Wood_Monster_1.h" />
@@ -212,8 +215,11 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="TilePalette.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="ToolScene.cpp" />
     <ClCompile Include="windowsAPI.cpp" />
     <ClCompile Include="Wood_Monster_1.cpp" />
   </ItemGroup>

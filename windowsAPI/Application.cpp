@@ -31,6 +31,12 @@ namespace sw
 		SceneManager::GetInstance()->Initalize();
 		Camera::GetInstance()->Initialize();
 	}
+
+	void Application::initializeAtlasWindow(WindowData data)
+	{
+		mAtlasWindowData = data;
+		mAtlasWindowData.hdc = GetDC(data.hWnd);
+	}
 		
 	void Application::initialize(WindowData data)
 	{
@@ -69,6 +75,24 @@ namespace sw
 		mBrushes[(UINT)eBrushColor::Black] = (HBRUSH)GetStockObject(BLACK_BRUSH);
 		mBrushes[(UINT)eBrushColor::Gray] = CreateSolidBrush(RGB(71, 71, 71));
 		mBrushes[(UINT)eBrushColor::White] = (HBRUSH)GetStockObject(WHITE_BRUSH);
+	}
+
+	void Application::SetMenuBar(bool power)
+	{
+		SetMenu(mWindowData.hWnd, mMenu);
+
+		// 클라이언트 크기게 맞춤
+		RECT rect = { 0, 0, mWindowData.width, mWindowData.height };
+		AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, power);
+
+		//윈도우 크기변경
+		SetWindowPos(mWindowData.hWnd
+			, nullptr, 0, 0
+			, rect.right - rect.left
+			, rect.bottom - rect.top
+			, 0);
+
+		ShowWindow(mWindowData.hWnd, true);
 	}
 
 	void Application::Tick()
