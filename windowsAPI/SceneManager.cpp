@@ -36,8 +36,9 @@ namespace sw
 		mScenes[(UINT)eSceneType::Tool]->Initialize();
 
 		// 자식 > 부모 (업캐스팅)
-		mPlayScene = mScenes[(UINT)eSceneType::Tool];
-
+		//mPlayScene = mScenes[(UINT)eSceneType::Tool];
+		
+		ChangeScene(eSceneType::Tool);
 		// 부모 > 자식 (다운캐스팅)
 	}
 
@@ -67,16 +68,13 @@ namespace sw
 
 	void SceneManager::ChangeScene(eSceneType type)
 	{
-		if (mPlayScene == nullptr)
-		{
-			mPlayScene = mScenes[(UINT)eSceneType::Logo];
-		}
-		else
-		{
-			mPlayScene->Exit();
-			mPlayScene = mScenes[(UINT)type];
-		}
+		if (mScenes[(UINT)type] == nullptr)
+			return;
 
+		if(mPlayScene)
+			mPlayScene->Exit();
+
+		mPlayScene = mScenes[(UINT)type];
 		mPlayScene->Enter();
 	}
 }

@@ -114,4 +114,20 @@ namespace sw
 	{
 		return mKeys[(UINT)keyCode].state;
 	}
+	Vector2 Input::GetMousePos(HWND hWnd)
+	{
+		Vector2 vMousePos(-1.0f, -1.0f);
+		if (GetFocus())
+		{
+			POINT mousePos = {};
+			GetCursorPos(&mousePos);
+			ScreenToClient(hWnd, &mousePos);
+			vMousePos.x = mousePos.x;
+			vMousePos.y = mousePos.y;
+
+			return vMousePos;
+		}
+
+		return vMousePos;
+	}
 }

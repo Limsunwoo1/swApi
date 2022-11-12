@@ -55,6 +55,8 @@ namespace sw
 		void Render(HDC hdc);
 		eKeyState GetkeyState(eKeyCode keycode);
 
+		Vector2 GetMousePos() { return mMousePos; }
+		Vector2 GetMousePos(HWND hWnd);
 	private:
 		 std::vector<Key> mKeys;
 		 Vector2 mMousePos;

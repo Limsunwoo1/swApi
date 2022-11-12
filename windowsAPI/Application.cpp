@@ -1,4 +1,7 @@
 #include "Application.h"
+#include "windowsAPI.h"
+#include "Application.h"
+
 #include "ResourceManager.h"
 #include "SceneManager.h"
 #include "EventManager.h"
@@ -75,6 +78,8 @@ namespace sw
 		mBrushes[(UINT)eBrushColor::Black] = (HBRUSH)GetStockObject(BLACK_BRUSH);
 		mBrushes[(UINT)eBrushColor::Gray] = CreateSolidBrush(RGB(71, 71, 71));
 		mBrushes[(UINT)eBrushColor::White] = (HBRUSH)GetStockObject(WHITE_BRUSH);
+
+		mMenu = LoadMenu(nullptr, MAKEINTRESOURCEW(IDC_WINDOWSAPI));
 	}
 
 	void Application::SetMenuBar(bool power)
