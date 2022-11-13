@@ -126,7 +126,16 @@ union ColliderID
 	};
 
 	UINT64 ID;
+
+	ColliderID();
+	ColliderID(UINT32 Inleft, UINT32 Inright)
+	{
+		left = Inleft;
+		right = Inright;
+	}
 };
+
+typedef ColliderID TileID;
 
 #define TILE_SIZE 32
 #define TILE_SCALE 2

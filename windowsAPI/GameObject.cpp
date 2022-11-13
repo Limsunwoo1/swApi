@@ -7,7 +7,19 @@ namespace sw
 		: mPos {0.0f, 0.0f}
 		, mScale {1.0f, 1.0f}
 		, mDeath (false)
+		, mDeathTime(-100.0f)
+		, mDeathTimeOn(false)
 	{
+	}
+
+	GameObject::GameObject(Vector2 position)
+		: mPos{ position }
+		, mScale{ 1.0f, 1.0f }
+		, mDeath(false)
+		, mDeathTime(-100.0f)
+		, mDeathTimeOn(false)
+	{
+
 	}
 
 	GameObject::~GameObject()

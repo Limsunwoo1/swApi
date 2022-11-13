@@ -87,10 +87,8 @@ namespace sw
     void CollisionManager::ColliderCollision(Collider* left, Collider* right)
     {
         // 두 충돌체의 Layer 번호를 일단 확인해준다
-        ColliderID id;
-        id.left = left->GetID();
-        id.right = right->GetID();
-        
+        ColliderID id(left->GetID(), right->GetID());
+
         std::map<UINT64, bool>::iterator iter
             = mCollisionInformation.find(id.ID);
 

@@ -77,8 +77,8 @@ namespace sw
 		{
 			if (*iter == object)
 			{
-				delete *iter;
-				*iter = nullptr;
+				/*delete *iter;
+				*iter = nullptr;*/
 
 				mObjects[(UINT)type].erase(iter);
 

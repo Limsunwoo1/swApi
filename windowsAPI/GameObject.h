@@ -10,6 +10,7 @@ namespace sw
 	{
 	public:
 		GameObject();
+		GameObject(Vector2 position);
 		virtual ~GameObject();
 
 
@@ -55,6 +56,9 @@ namespace sw
 		Vector2D mScale;
 
 		bool mDeath;
+		float mDeathTime;
+		bool mDeathTimeOn;
+
 		eObjectState mCurstate;
 	};
 }

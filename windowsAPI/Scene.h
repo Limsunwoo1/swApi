@@ -5,7 +5,6 @@
 namespace sw
 {
 	class GameObject;
-
 	class Scene : public Entity
 	{
 	public:

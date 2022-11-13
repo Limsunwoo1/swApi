@@ -31,14 +31,16 @@ namespace sw
 
 	void ToolScene::Tick()
 	{
-
+        if (mTilePalette)
+            mTilePalette->Tick();
 	}
 
 	void ToolScene::Render(HDC hdc)
 	{
-		Scene::Render(hdc);
-
 		WindowData mainWindow = Application::GetInstance().GetWindowData();
+        Rectangle(hdc, 0, 0, mainWindow.width, mainWindow.height);
+
+		Scene::Render(hdc);
 
 		HPEN GreenPen = CreatePen(PS_SOLID, 2, RGB(0, 130, 0));
 		HPEN oldPen = (HPEN)SelectObject(hdc, GreenPen);
@@ -138,7 +140,6 @@ LRESULT CALLBACK AtlasWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
             sw::Scene* scene = sw::SceneManager::GetInstance()->GetPlayScene();
             sw::ToolScene* toolscene = dynamic_cast<sw::ToolScene*>(scene);
             toolscene -> SetTileIndex(index);
-            int a = 0; // 여기부터 다시 코드
         }
 
     }

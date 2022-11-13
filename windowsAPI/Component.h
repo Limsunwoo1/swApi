@@ -4,7 +4,6 @@
 
 namespace sw
 {
-	class GameObject;
 	class Component : public Entity
 	{
 	public:

@@ -1,7 +1,7 @@
 #pragma once
 
+// Window 헤더
 #include "framework.h"
-
 #include <string>
 #include <vector>
 #include <list>
@@ -10,6 +10,8 @@
 #include <functional>
 #include <filesystem>
 
+
+// 자체 제작 해더
 #include "def.h"
 #include "Maths.h"
 

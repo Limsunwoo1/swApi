@@ -18,6 +18,16 @@ namespace sw
 		}
 
 		template <typename T>
+		static __forceinline T* Instantiate(Vector2 position, eColliderLayer type)
+		{
+			T* gameObject = new T(position);
+			Scene* scene = SceneManager::GetInstance()->GetPlayScene();
+			scene->AddGameObject(dynamic_cast<GameObject*>(gameObject), type);
+
+			return gameObject;
+		}
+
+		template <typename T>
 		static __forceinline void Destroy(GameObject* gameobj)
 		{
 			gameobj->Deth();

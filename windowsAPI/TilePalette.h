@@ -3,6 +3,7 @@
 
 namespace sw
 {
+	class Tile;
 	class Image;
 	class TilePalette
 	{
@@ -13,6 +14,10 @@ namespace sw
 		void Tick();
 		void Render(HDC hdc);
 
+		void CreateTile(UINT index, Vector2 indexPos);
+		void DeleteTile(Vector2 mousePos);
+
+		void TileObserver();
 		//void CreateTile
 		//void CreateTiles
 
@@ -23,6 +28,9 @@ namespace sw
 
 	private:
 		Image* mImage;
+		std::unordered_map<UINT64, Tile*> mTiles;
+
+		bool bObserver;
 	};
 }
 
