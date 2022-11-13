@@ -43,18 +43,18 @@ namespace sw
 		HPEN GreenPen = CreatePen(PS_SOLID, 2, RGB(0, 130, 0));
 		HPEN oldPen = (HPEN)SelectObject(hdc, GreenPen);
 
-		int maxRow = mainWindow.height / TILE_SIZE + 1;
+		int maxRow = mainWindow.height / TILE_SIZE * TILE_SCALE + 1;
 		for (size_t i = 0; i < maxRow; i++)
 		{
-			MoveToEx(hdc, 0, TILE_SIZE * i, nullptr);
-			LineTo(hdc, mainWindow.width, TILE_SIZE * i);
+			MoveToEx(hdc, 0, TILE_SIZE * i * TILE_SCALE, nullptr);
+			LineTo(hdc, mainWindow.width, TILE_SIZE * i * TILE_SCALE);
 		}
 
-		int maxColumn = mainWindow.width / TILE_SIZE + 1;
+		int maxColumn = mainWindow.width / TILE_SIZE * TILE_SCALE + 1;
 		for (size_t i = 0; i < maxColumn; i++)
 		{
-			MoveToEx(hdc, TILE_SIZE * i, 0, nullptr);
-			LineTo(hdc, TILE_SIZE * i, mainWindow.height);
+			MoveToEx(hdc, TILE_SIZE * i * TILE_SCALE, 0, nullptr);
+			LineTo(hdc, TILE_SIZE * i * TILE_SCALE, mainWindow.height);
 		}
 
 		(HPEN)SelectObject(hdc, oldPen);
@@ -93,9 +93,8 @@ LRESULT CALLBACK AtlasWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
         sw::Image* atlas = toolScene->GetAtlasImage();
 
         RECT rect = { 0, 0, atlas->GetWidth() * TILE_SCALE, atlas->GetHeight() * TILE_SCALE };
-        AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, true);
-        SetWindowPos(hWnd, nullptr, windowData.width, 0, atlas->GetWidth(), atlas->GetHeight(), 0);
-
+        AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+        // 윈도우 크기 변경
         SetWindowPos(hWnd
             , nullptr, windowData.width, 0
             , rect.right - rect.left
