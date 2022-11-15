@@ -25,6 +25,8 @@ namespace sw
 			, Vector2 offset = Vector2::Zero
 			, float duration = 0.1);
 
+		std::wstring CreateAniamtionKey(std::wstring path);
+
 		Animation::Event& StartEvent() {return mPlayAnimation->StartEvent();}
 		Animation::Event& CompleteEvent() { return mPlayAnimation->CompleteEvent(); }
 		Animation::Event& EndEvent() { return mPlayAnimation->EndEvent(); }

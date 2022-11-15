@@ -215,8 +215,25 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             case IDM_ABOUT:
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
                 break;
+
+            case ID_SAVE:
+            {
+                sw::Scene* scene = sw::SceneManager::GetInstance()->GetPlayScene();
+                sw::ToolScene* toolScene = dynamic_cast<sw::ToolScene*>(scene);
+                toolScene->SaveTilePalette();
+            }
+                break;
+
+            case ID_LOAD:
+            {
+                sw::Scene* scene = sw::SceneManager::GetInstance()->GetPlayScene();
+                sw::ToolScene* toolScene = dynamic_cast<sw::ToolScene*>(scene);
+                toolScene->LoadTilePalette();
+            }
+                break;
+
             case IDM_EXIT:
-                DestroyWindow(hWnd);
+                //DestroyWindow(hWnd);
                 break;
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);

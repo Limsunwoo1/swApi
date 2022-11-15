@@ -50,6 +50,23 @@ namespace sw
 			mPlayAnimation->Render(hdc);
 	}
 
+	std::wstring Animator::CreateAniamtionKey(std::wstring path)
+	{
+		std::wstring keyString = path;
+
+		// 얘니메이션 폴더 이름 추룰
+		UINT pos = keyString.find_last_of(L"\\");
+		std::wstring tail = keyString.substr(pos + 1, keyString.length());
+		keyString = keyString.substr(0, pos);
+
+		// 애니메이션 오브젝트 이름 추출
+		pos = keyString.find_last_of(L"\\");
+		std::wstring head = keyString.substr(pos + 1, keyString.length());
+		keyString = head + tail;
+
+		return keyString;
+	}
+
 	Animation* Animator::FindAnimation(const std::wstring name)
 	{
 		std::map<const std::wstring, Animation*>::iterator iter
@@ -97,8 +114,9 @@ namespace sw
 		for (auto& file : std::filesystem::recursive_directory_iterator(path))
 		{
 			std::wstring filename = file.path().filename();
+			std::wstring key = CreateAniamtionKey(path);
 			std::wstring fullName = path + L"\\" + filename;
-			Image* image = ResourceManager::GetInstance()->Load<Image>(filename, fullName);
+			Image* image = ResourceManager::GetInstance()->Load<Image>(key, fullName);
 			images.push_back(image);
 
 			// 제일큰 리소스의 크기 셋팅
@@ -129,17 +147,16 @@ namespace sw
 	{ 
 		if (mPlayAnimation != nullptr)
 		{
+			mPlayAnimation = FindAnimation(name);
+			mPlayAnimation->Reset();
+			mbLoop = bLoop;
+
 			Animation::Event StartEvent =
 				mPlayAnimation->StartEvent();
 
 			StartEvent();
 		}
-
 		Animation* prevAnimation = mPlayAnimation;
-
-		mPlayAnimation = FindAnimation(name);
-		mPlayAnimation->Reset();
-		mbLoop = bLoop;
 
 		// 이전 애니매이션에 End 이벤트 호출
 		if (prevAnimation != mPlayAnimation && prevAnimation != nullptr)

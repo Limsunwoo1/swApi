@@ -21,8 +21,9 @@ namespace sw
 		//void CreateTile
 		//void CreateTiles
 
-		// void Save
-		// void Load
+		void Save();
+		void Load();
+		void Load(const std::wstring& path);
 
 		Image* GetAtlasImage() {return mImage;}
 

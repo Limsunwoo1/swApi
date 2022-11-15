@@ -127,7 +127,11 @@ union ColliderID
 
 	UINT64 ID;
 
-	ColliderID();
+	ColliderID()
+	{
+
+	}
+
 	ColliderID(UINT32 Inleft, UINT32 Inright)
 	{
 		left = Inleft;

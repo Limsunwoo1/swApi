@@ -73,6 +73,18 @@ namespace sw
 
 	}
 
+    void ToolScene::SaveTilePalette()
+    {
+        mTilePalette->Save();
+    }
+    void ToolScene::LoadTilePalette()
+    {
+        mTilePalette->Load();
+    }
+    void ToolScene::LoadTilePalette(const std::wstring& path)
+    {
+        mTilePalette->Load(path);
+    }
 
 }
 

@@ -17,6 +17,10 @@ namespace sw
 
 		virtual void Enter();
 		virtual void Exit();
+		
+		void SaveTilePalette();
+		void LoadTilePalette();
+		void LoadTilePalette(const std::wstring& path);
 
 		Image* GetAtlasImage() {return mTilePalette->GetAtlasImage();}
 

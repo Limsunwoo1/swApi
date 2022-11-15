@@ -7,6 +7,8 @@
 #include "Scene.h"
 #include "ToolScene.h"
 #include "Input.h"
+#include <commdlg.h>
+#include "def.h"
 
 namespace sw
 {
@@ -141,5 +143,115 @@ namespace sw
 			iter->second = nullptr;
 			bObserver = true;
 		}
+	}
+
+	void TilePalette::Save()
+	{
+		// open a file name
+		OPENFILENAME ofn = {};
+
+		wchar_t szFilePath[256] = {};
+
+		ZeroMemory(&ofn, sizeof(ofn));
+		ofn.lStructSize = sizeof(ofn);
+		ofn.hwndOwner = NULL;
+		ofn.lpstrFile = szFilePath;
+		ofn.lpstrFile[0] = '\0';
+		ofn.nMaxFile = 256;
+		ofn.lpstrFilter = L"Tile\0*.tile\0";
+		ofn.nFilterIndex = 1;
+		ofn.lpstrFileTitle = NULL;
+		ofn.nMaxFileTitle = 0;
+		ofn.lpstrInitialDir = NULL;
+		ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+		if (false == GetSaveFileName(&ofn))
+			return;
+
+		FILE* pFile = nullptr;
+		_wfopen_s(&pFile, szFilePath, L"wb");
+		if (pFile == nullptr)
+			return;
+
+		std::unordered_map<UINT64, Tile*>::iterator iter = mTiles.begin();
+		for (; iter != mTiles.end(); ++iter)
+		{
+			int tileIndex = (*iter).second->GetIndex();
+			fwrite(&tileIndex, sizeof(int), 1, pFile);
+
+			TileID id;
+			id.ID = (*iter).first;
+			fwrite(&id.ID, sizeof(UINT64), 1, pFile);
+		}
+
+		fclose(pFile);
+	}
+
+	void TilePalette::Load()
+	{
+		OPENFILENAME ofn = {};
+
+		wchar_t szFilePath[256] = {};
+
+		ZeroMemory(&ofn, sizeof(ofn));
+		ofn.lStructSize = sizeof(ofn);
+		ofn.hwndOwner = NULL;
+		ofn.lpstrFile = szFilePath;
+		ofn.lpstrFile[0] = '\0';
+		ofn.nMaxFile = 256;
+		ofn.lpstrFilter = L"All\0*.*\0Text\0*.TXT\0";
+		ofn.nFilterIndex = 1;
+		ofn.lpstrFileTitle = NULL;
+		ofn.nMaxFileTitle = 0;
+		ofn.lpstrInitialDir = NULL;
+		ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+		if (false == GetOpenFileName(&ofn))
+			return;
+
+		FILE* pFile = nullptr;
+		_wfopen_s(&pFile, szFilePath, L"rb");
+		if (pFile == nullptr)
+			return;
+
+		while (true)
+		{
+			int tileIndex = 0;
+			TileID id;
+
+			if (fread(&tileIndex, sizeof(int), 1, pFile) == NULL)
+				break;
+
+			if (fread(&id.ID, sizeof(UINT64), 1, pFile) == NULL)
+				break;
+
+			CreateTile(tileIndex, Vector2(id.left, id.right));
+		}
+
+		fclose(pFile);
+	}
+
+	void TilePalette::Load(const std::wstring& path)
+	{
+		FILE* pFile = nullptr;
+		_wfopen_s(&pFile, path.c_str(), L"rb");
+		if (pFile == nullptr)
+			return;
+
+		while (true)
+		{
+			int tileIndex = 0;
+			TileID id;
+
+			if (fread(&tileIndex, sizeof(int), 1, pFile) == NULL)
+				break;
+
+			if (fread(&id.ID, sizeof(UINT64), 1, pFile) == NULL)
+				break;
+
+			CreateTile(tileIndex, Vector2(id.left, id.right));
+		}
+
+		fclose(pFile);
 	}
 }
