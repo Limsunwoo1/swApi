@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "BackGround.h"
 #include "Wood_Monster_1.h"
+#include "Ground.h"
 
 #include "MeteorControler.h"
 #include "Input.h"
@@ -26,20 +27,16 @@ namespace sw
 		bg->SetImage(L"Back", L"BackGround.bmp");
 		bg->Initialize();
 
-		Wood_Monster_1* ms1 = new Wood_Monster_1();
-		Wood_Monster_1* ms2 = new Wood_Monster_1();
-
-		ms2->SetPos(Vector2(700,500));
-
+		Ground* ground = new Ground();
+		ground->SetPos(Vector2(100.f, 500.f));
 
 		AddGameObject(bg,eColliderLayer::BackGround);
 		AddGameObject(new Player(),eColliderLayer::Player);
+		AddGameObject(ground, eColliderLayer::Ground);
 
-		AddGameObject(ms1, eColliderLayer::Monster);
-		AddGameObject(ms2, eColliderLayer::Monster);
+		/*AddGameObject(ms1, eColliderLayer::Monster);
+		AddGameObject(ms2, eColliderLayer::Monster);*/
 
-		CollisionManager::GetInstance()->SetLayer(eColliderLayer::Player, eColliderLayer::Monster_ProjectTile);
-		CollisionManager::GetInstance()->SetLayer(eColliderLayer::Player, eColliderLayer::Monster);
 	}
 
 	void PlayScene::Tick()
@@ -64,5 +61,17 @@ namespace sw
 		swprintf_s(szFloat, 50, L"Paly Scene");
 		int strLen = (int)wcsnlen_s(szFloat, 50);
 		TextOut(hdc, 10, 30, szFloat, strLen);
+	}
+
+	void PlayScene::Enter()
+	{
+		/*CollisionManager::GetInstance()->SetLayer(eColliderLayer::Player, eColliderLayer::Monster_ProjectTile);
+		CollisionManager::GetInstance()->SetLayer(eColliderLayer::Player, eColliderLayer::Monster);*/
+		CollisionManager::GetInstance()->SetLayer(eColliderLayer::Player, eColliderLayer::Ground);
+	}
+
+	void PlayScene::Exit()
+	{
+
 	}
 }

@@ -54,6 +54,9 @@
     <Filter Include="Engine\GameObject\Tile">
       <UniqueIdentifier>{18f7b23b-1a16-4316-8618-f12a48487c83}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\UiBase">
+      <UniqueIdentifier>{5ca60c0e-21b2-4235-a37d-ab425c078dda}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -173,6 +176,18 @@
     <ClInclude Include="TilePalette.h">
       <Filter>Engine\GameObject\Tile</Filter>
     </ClInclude>
+    <ClInclude Include="Rigidbody.h">
+      <Filter>Engine\Compnent</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="UiBase.h">
+      <Filter>Engine\GameObject\UiBase</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -270,6 +285,18 @@
     </ClCompile>
     <ClCompile Include="TilePalette.cpp">
       <Filter>Engine\GameObject\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="Rigidbody.cpp">
+      <Filter>Engine\Compnent</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="UiBase.cpp">
+      <Filter>Engine\GameObject\UiBase</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

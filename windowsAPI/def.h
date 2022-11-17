@@ -57,6 +57,7 @@ enum class eBrushColor
 
 enum class eComponentType
 {
+	Rigidbody,
 	Animator,
 	Collider,
 	Sound,
@@ -69,6 +70,7 @@ enum class eColliderLayer : short
 {
 	Default,
 	BackGround,
+	Ground,
 	Tile,
 	Player,
 	Player_ProjectTile,
@@ -112,6 +114,18 @@ enum class eObjectState
 	SKILL_2,
 
 	BESHOT,
+
+
+	END,
+};
+
+enum class eUIType
+{
+	HP,
+	MP,
+	SHOP,
+	INVENTORY,
+	OPTION,
 
 
 	END,

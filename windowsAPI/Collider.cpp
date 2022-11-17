@@ -24,7 +24,7 @@ namespace sw
 	{
 		GameObject* owner = GetOwner();
 		mPos = owner->GetPos() + mOffset;
-		mScale = owner->GetScale();
+		//mScale = owner->GetScale();
 	}
 
 	void Collider::Render(HDC hdc)
@@ -44,10 +44,10 @@ namespace sw
 		Vector2 pos = GetPos();
 		Vector2 scale = GetScale();
 
-		pos = Camera::GetInstance()->CalculatePos(pos);
+		mPos = Camera::GetInstance()->CalculatePos(mPos);
 
-		Rectangle(hdc, pos.x - (scale.x * 0.5), pos.y - (scale.y * 0.5)
-			, pos.x + (scale.x * 0.5), pos.y + (scale.y * 0.5));
+		Rectangle(hdc, mPos.x - (mScale.x * 0.5), mPos.y - (mScale.y * 0.5)
+			, mPos.x + (mScale.x * 0.5), mPos.y + (mScale.y * 0.5));
 
 		SelectObject(hdc, oldPen);
 		DeleteObject(redPen);

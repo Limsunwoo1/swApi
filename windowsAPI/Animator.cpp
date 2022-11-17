@@ -113,10 +113,11 @@ namespace sw
 		std::vector<Image*> images;
 		for (auto& file : std::filesystem::recursive_directory_iterator(path))
 		{
+			std::wstring cnt = std::to_wstring(fileCount);
 			std::wstring filename = file.path().filename();
 			std::wstring key = CreateAniamtionKey(path);
 			std::wstring fullName = path + L"\\" + filename;
-			Image* image = ResourceManager::GetInstance()->Load<Image>(key, fullName);
+			Image* image = ResourceManager::GetInstance()->Load<Image>(key + cnt, fullName);
 			images.push_back(image);
 
 			// 제일큰 리소스의 크기 셋팅
@@ -145,7 +146,7 @@ namespace sw
 	}
 	void Animator::Play(const std::wstring name, bool bLoop)
 	{ 
-		if (mPlayAnimation != nullptr)
+		if (mPlayAnimation == nullptr)
 		{
 			mPlayAnimation = FindAnimation(name);
 			mPlayAnimation->Reset();

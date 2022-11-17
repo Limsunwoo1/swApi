@@ -172,6 +172,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    sw::Application::GetInstance().Initialize(windowData);
 
+   return TRUE;
+
    WindowData atlasWindowdata;
    hWnd = CreateWindowW(L"AtlasWindow", szTitle, WS_OVERLAPPEDWINDOW,
        CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);

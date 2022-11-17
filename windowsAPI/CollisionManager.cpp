@@ -137,6 +137,11 @@ namespace sw
 
     bool CollisionManager::Intersect(Collider* left, Collider* right)
     {
+        if (left->GetOwner()->IsDeath())
+            return false;
+        if (right->GetOwner()->IsDeath())
+            return false;
+
         Vector2 leftPos = left->GetPos();
         Vector2 leftScale = left->GetScale();
 

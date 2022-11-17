@@ -12,6 +12,7 @@
 #include "Animator.h"
 #include "Animation.h"
 #include "Collider.h"
+#include "Rigidbody.h"
 
 
 namespace sw
@@ -24,13 +25,15 @@ namespace sw
 
 		if (!mImage)
 		{
-			mImage = ResourceManager::GetInstance()->Load<Image>(L"PLAYER", L"..\\Resource\\Image\\test.bmp");
+			mImage = ResourceManager::GetInstance()->Load<Image>(L"PLAYER", L"..\\Resource\\Image\\payer1.bmp");
 		}
 
 		mAnimator = new Animator();
 
 		AddComponent(mAnimator);
-		AddComponent(new Collider());
+		AddComponent<Rigidbody>();
+		Collider* collider = AddComponent<Collider>();
+		collider->SetScale(this->GetScale());
 
 		Animation::Sprite sprite;
 		sprite.LeftTop = Vector2(0.0f, 0.0f);
@@ -42,9 +45,9 @@ namespace sw
 			sprite.LeftTop, sprite.size, sprite.offest,
 			7, sprite.duration, true);
 
-		mAnimator->CreatAnimations(L"MonsterAttack", L"..\\Resource\\Animation\\AttackWood", Vector2::Zero, 0.4f);
+		mAnimator->CreatAnimations(L"MonsterAttackW", L"..\\Resource\\Animation\\Monster\\AttackW", Vector2::Zero, 0.4f);
 
-		mAnimator->Play(L"MonsterAttack",true);
+		mAnimator->Play(L"MonsterAttackW",true);
 
 
 		// Animator 에 현재 진행중인 애니메이션 셋팅후 바인딩
@@ -56,11 +59,9 @@ namespace sw
 				std::bind(&Player::CompleteEvent, this);
 		}*/
 
-
-
-
 		SetState(eObjectState::IDEL);
 		Camera::GetInstance()->SetTarget(this);
+
 	}
 
 	Player::~Player()
@@ -93,20 +94,20 @@ namespace sw
 		{
 			if (KEY_PRESSE(eKeyCode::W))
 			{
-				pos.y -= 120.0f * Time::GetInstance()->DeltaTime() * speed;
+				//GetComponent<Rigidbody>()->AddForce(Vector2(0.0f, -500.0f));
 			}
 			if (KEY_PRESSE(eKeyCode::S))
 			{
-				pos.y += 120.0f * Time::GetInstance()->DeltaTime() * speed;
+				//GetComponent<Rigidbody>()->AddForce(Vector2(0.0f, 500.0f));
 			}
 			if (KEY_PRESSE(eKeyCode::A) &&
 				(GetState() != eObjectState::RIGHT))
 			{
-				pos.x -= 120.0f * Time::GetInstance()->DeltaTime() * speed;
+				GetComponent<Rigidbody>()->AddForce(Vector2(-500.0f, 0.0f));
 			}
 			if (KEY_PRESSE(eKeyCode::D))
 			{
-				pos.x += 120.0f * Time::GetInstance()->DeltaTime() * speed;
+				GetComponent<Rigidbody>()->AddForce(Vector2(500.0f, 0.0f));
 			}
 
 			if (KEY_DOWN(eKeyCode::D))
@@ -118,32 +119,43 @@ namespace sw
 			{
 				//SetState(eObjectState::IDEL);
 			}
-		}
 
-		if (KEY_DOWN(eKeyCode::SPACE))
-		{
-			switch (state)
+			if (KEY_DOWN(eKeyCode::SPACE))
 			{
-			case eObjectState::ATTACK_1:
-			{
-				SetState(eObjectState::ATTACK_2);
-			}
-			break;
+				Rigidbody* rigidbody = GetComponent<Rigidbody>();
+				Vector2 velocity = rigidbody->GetVelocity();
+				velocity.y = -700.0f;
+				rigidbody->SetVelocity(velocity);
 
-			case eObjectState::ATTACK_2:
-			{
-				//SetState(eObjectState::ATTACK_3);
-			}
-			break;
-
-			default:
-			{
-				SetState(eObjectState::ATTACK_1);
-			}
-			break;
-
+				rigidbody->SetGround(false);
 			}
 		}
+
+
+		//if (KEY_DOWN(eKeyCode::SPACE))
+		//{
+		//	switch (state)
+		//	{
+		//	case eObjectState::ATTACK_1:
+		//	{
+		//		//SetState(eObjectState::ATTACK_2);
+		//	}
+		//	break;
+
+		//	case eObjectState::ATTACK_2:
+		//	{
+		//		//SetState(eObjectState::ATTACK_3);
+		//	}
+		//	break;
+
+		//	default:
+		//	{
+		//		SetState(eObjectState::ATTACK_1);
+		//	}
+		//	break;
+
+		//	}
+		//}
 
 		SetPos(pos);
 	}
@@ -155,12 +167,12 @@ namespace sw
 
 		pos = Camera::GetInstance()->CalculatePos(pos);
 
-		/*TransparentBlt(hdc,
+		/*transparentblt(hdc,
 			(float)pos.x - (scale.x * 0.5f), (float)pos.y - (scale.y * 0.5f),
 			scale.x, scale.y,
-			mImage->GetDC(),
-			0, 0, mImage->GetWidth(), mImage->GetHeight(),
-			RGB(255, 0, 255));*/
+			mimage->getdc(),
+			0, 0, mimage->getwidth(), mimage->getheight(),
+			rgb(255, 0, 255));*/
 
 		// 총알 충돌박스 만들기
 		// 플레이어 scale 다시생각해보기 

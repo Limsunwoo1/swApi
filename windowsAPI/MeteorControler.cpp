@@ -25,21 +25,21 @@ namespace sw
 		mDeltaTime += Time::GetInstance()->DeltaTime();
 		if (mDeltaTime > 1.0f)
 		{
-			Meteor* meteor = new Meteor();
-			float x = rand() % 1921;
-			meteor->SetPos({x, -1});
+			//Meteor* meteor = new Meteor();
+			//float x = rand() % 1921;
+			//meteor->SetPos({x, -1});
 
-			meteor->AddComponent(new Collider());
-			meteor->AddComponent(new Animator());
+			//meteor->AddComponent(new Collider());
+			//meteor->AddComponent(new Animator());
 
-			// Event持失
-			EventInfo info;
-			info.Type = EventType::AddObejct;
-			info.Parameter1 = new eColliderLayer(eColliderLayer::Monster_ProjectTile);
-			info.Parameter2 = meteor;
-			EventManager::GetInstance()->EventPush(info);
+			//// Event持失
+			//EventInfo info;
+			//info.Type = EventType::AddObejct;
+			//info.Parameter1 = new eColliderLayer(eColliderLayer::Monster_ProjectTile);
+			//info.Parameter2 = meteor;
+			//EventManager::GetInstance()->EventPush(info);
 
-			Meteors.push_back(meteor);
+			//Meteors.push_back(meteor);
 
 			mDeltaTime -= 0.5f;
 		}

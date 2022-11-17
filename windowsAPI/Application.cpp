@@ -104,10 +104,10 @@ namespace sw
 	{
 		Time::GetInstance()->Tick();
 		Input::GetInstance()->Tick();
-		Camera::GetInstance()->Tick();
+		SceneManager::GetInstance()->Tick();
 
 		CollisionManager::GetInstance()->Tick();
-		SceneManager::GetInstance()->Tick();
+		Camera::GetInstance()->Tick();
 		
 
 		Application::Render();

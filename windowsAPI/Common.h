@@ -7,6 +7,7 @@
 #include <list>
 #include <map>
 #include <queue>
+#include <stack>
 #include <functional>
 #include <filesystem>
 
